@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Unity セッティング</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">DevelopmentGuidelines</p>
+      <h1 class="title">Unity セッティング</h1>
+      <p class="lead">Unity のバージョン、設定、アセット運用、Editor 拡張、ビルドまわりの基準をまとめます。</p>
+      <div class="meta">
+        <span class="chip">対象: Unity</span>
+        <span class="chip">観点: 設定と運用</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel">
+        <h2>目次</h2>
+        <ul class="toc">
+          <li><a href="index.html">トップ</a></li>
+          <li><a href="#version">バージョン</a></li>
+          <li><a href="#project-settings">ProjectSettings</a></li>
+          <li><a href="#assets">アセット運用</a></li>
+          <li><a href="#editor">Editor 拡張</a></li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <section class="section" id="version">
+          <h2>バージョン</h2>
+          <p>使用する Unity バージョンと更新方針を記録します。互換性を壊しやすい変更は、更新の条件として明示します。</p>
+        </section>
+
+        <section class="section" id="project-settings">
+          <h2>ProjectSettings</h2>
+          <div class="grid">
+            <div class="card"><h3>入力</h3><p>入力方式や設定の標準を定めます。</p></div>
+            <div class="card"><h3>品質</h3><p>品質設定、解像度、プラットフォームごとの差分を記録します。</p></div>
+            <div class="card"><h3>ビルド</h3><p>ビルド設定、Scripting Backend、ターゲットごとの方針を記録します。</p></div>
+            <div class="card"><h3>アセンブリ定義</h3><p>asmdef の分割と依存関係の考え方を記録します。</p></div>
+          </div>
+        </section>
+
+        <section class="section" id="assets">
+          <h2>アセット運用</h2>
+          <div class="grid">
+            <div class="card"><h3>命名</h3><p>Scene、Prefab、ScriptableObject、素材の命名を揃えます。</p></div>
+            <div class="card"><h3>配置</h3><p>Assets 配下の構成と、共有アセットの置き場所を記録します。</p></div>
+            <div class="card"><h3>依存</h3><p>循環依存や過剰な参照を避ける方針を記録します。</p></div>
+            <div class="card"><h3>エディタ資産</h3><p>Editor 専用資産の扱いと、実行時資産との分離を記録します。</p></div>
+          </div>
+        </section>
+
+        <section class="section" id="editor">
+          <h2>Editor 拡張</h2>
+          <p>Editor ツール、カスタムウィンドウ、メニュー、デバッグ補助の扱いを記録します。実行時コードと混ぜない方針を優先します。</p>
+        </section>
+      </main>
+
+      <aside class="summary">
+        <h2>文書情報</h2>
+        <table class="table">
+          <tbody>
+            <tr><th>ページ</th><td>Unity セッティング</td></tr>
+            <tr><th>用途</th><td>設定と運用の公開資料</td></tr>
+            <tr><th>主な対象</th><td>ProjectSettings / Assets / Editor</td></tr>
+          </tbody>
+        </table>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

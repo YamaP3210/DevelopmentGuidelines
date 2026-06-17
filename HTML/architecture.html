@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>基本アーキテクチャ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">DevelopmentGuidelines</p>
+      <h1 class="title">基本アーキテクチャ</h1>
+      <p class="lead">
+        MVC、MVVM、レイヤード構成など、開発で採用する構造の方針をまとめます。
+      </p>
+      <div class="meta">
+        <span class="chip">対象: 設計</span>
+        <span class="chip">観点: 責務と依存</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel" aria-label="目次">
+        <h2>目次</h2>
+        <ul class="toc">
+          <li><a href="index.html">トップ</a></li>
+          <li><a href="#overview">概要</a></li>
+          <li><a href="#principles">考える観点</a></li>
+          <li><a href="#patterns">記録する内容</a></li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <section class="section" id="overview">
+          <h2>概要</h2>
+          <p class="callout">設計方針は、コードの書き方より上位にある判断材料として扱います。</p>
+        </section>
+
+        <section class="section" id="principles">
+          <h2>考える観点</h2>
+          <div class="grid">
+            <div class="card"><h3>責務分割</h3><p>UI、状態、ドメイン、I/O が混ざらない形を優先します。</p></div>
+            <div class="card"><h3>依存方向</h3><p>依存はなるべく一方向に流れる形を優先します。</p></div>
+            <div class="card"><h3>拡張性</h3><p>後から機能を足しやすい構造を優先します。</p></div>
+            <div class="card"><h3>読みやすさ</h3><p>設計図として説明しやすい構造を優先します。</p></div>
+          </div>
+        </section>
+
+        <section class="section" id="patterns">
+          <h2>記録する内容</h2>
+          <div class="grid">
+            <div class="card"><h3>MVC</h3><p>どの層を何に使うか、どこまでを許すかを記録します。</p></div>
+            <div class="card"><h3>MVVM</h3><p>View と Model の間をどうつなぐかを記録します。</p></div>
+            <div class="card"><h3>レイヤー構成</h3><p>プレゼンテーション、アプリケーション、ドメインなどの分け方を記録します。</p></div>
+            <div class="card"><h3>Unity での位置付け</h3><p>シーン、Prefab、コンポーネントの役割分担を記録します。</p></div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="summary">
+        <h2>文書情報</h2>
+        <table class="table">
+          <tbody>
+            <tr><th>ページ</th><td>基本アーキテクチャ</td></tr>
+            <tr><th>用途</th><td>設計方針の公開資料</td></tr>
+            <tr><th>主なキーワード</th><td>MVC / MVVM / レイヤー</td></tr>
+          </tbody>
+        </table>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

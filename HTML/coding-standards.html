@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>コーディング規約 / C#</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">DevelopmentGuidelines</p>
+      <h1 class="title">コーディング規約 / C#</h1>
+      <p class="lead">
+        .NET の公開ガイドラインを土台にした C# の規約ページです。
+        命名、表記、初期化、コレクション、ツール、非同期、文字列、例外、論理演算子、delegate、イベントをまとめます。
+      </p>
+      <div class="meta" aria-label="文書メタ情報">
+        <span class="chip">基準: Microsoft Learn</span>
+        <span class="chip">対象: C#</span>
+        <span class="chip">方針: 標準 + 必要な上書き</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel" aria-label="目次">
+        <h2>目次</h2>
+        <ul class="toc">
+          <li><a href="index.html">トップ</a></li>
+          <li><a href="#overview">概要</a></li>
+          <li><a href="#naming">命名</a></li>
+          <li><a href="#representation">表記と初期化</a></li>
+          <li><a href="#collections">コレクション</a></li>
+          <li><a href="#tools">ツール</a></li>
+          <li><a href="#async">非同期</a></li>
+          <li><a href="#strings">文字列</a></li>
+          <li><a href="#exceptions">例外処理</a></li>
+          <li><a href="#operators">論理演算子</a></li>
+          <li><a href="#delegates">delegate と func/action</a></li>
+          <li><a href="#events">イベント</a></li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <section class="section" id="overview">
+          <h2>概要</h2>
+          <p class="callout">
+            ここでは、.NET 標準の C# 規約をベースに、プロジェクトに合わせて必要な判断を重ねます。
+          </p>
+          <p>
+            まずは Microsoft Learn の公開ガイドラインを土台にし、後からプロジェクト固有の例外や上書きを加えます。
+          </p>
+        </section>
+
+        <section class="section" id="naming">
+          <h2>命名</h2>
+          <div class="grid">
+            <div class="card">
+              <h4>型と名前空間</h4>
+              <p>型名、名前空間、公開メンバーは PascalCase を使います。外部から参照される名前ほど、.NET の慣例に寄せます。</p>
+            </div>
+            <div class="card">
+              <h4>メンバー名と変数</h4>
+              <p>プロパティ、メソッド、イベント、定数は PascalCase を優先します。ローカル変数、引数、private フィールドは camelCase を使います。</p>
+            </div>
+            <div class="card">
+              <h4>インターフェースと属性</h4>
+              <p>インターフェース名は <code>I</code> で始め、属性型は <code>Attribute</code> で終えます。</p>
+            </div>
+            <div class="card">
+              <h4>識別子の基本</h4>
+              <p>識別子は先頭に文字または <code>_</code> を使い、必要なら <code>@if</code> のように verbatim identifier を使えます。</p>
+            </div>
+            <div class="card">
+              <h4>略語と名前空間</h4>
+              <p>一般的な略語以外は避けます。名前空間とアセンブリ名は意味の分かる名前にし、略語を使う場合は .NET 慣例との整合を優先します。</p>
+            </div>
+            <div class="card">
+              <h4>命名の優先度</h4>
+              <p>まず意味が伝わることを優先し、そのうえで既存の .NET 慣例と整合させます。プロジェクト固有の命名が必要な場合は、例外として明示します。</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="representation">
+          <h2>表記と初期化</h2>
+          <div class="grid">
+            <div class="card">
+              <h4>型表記</h4>
+              <p>型は <code>string</code> や <code>int</code> などの C# キーワードを優先し、<code>var</code> は型が明確な場合に使います。</p>
+            </div>
+            <div class="card">
+              <h4>初期化</h4>
+              <p>文字列補間、raw string literal、<code>new()</code>、オブジェクト初期化子、<code>required</code> を適切に使います。</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="collections">
+          <h2>コレクション</h2>
+          <p>配列やコレクションの初期化は collection expressions を優先します。複数の要素を扱う場面では、読みやすさを崩さない範囲で LINQ を使います。</p>
+        </section>
+
+        <section class="section" id="tools">
+          <h2>ツール</h2>
+          <p><code>.editorconfig</code> と code analysis を使って規約を整えます。Visual Studio の編集時設定だけに依存しません。</p>
+        </section>
+
+        <section class="section" id="async">
+          <h2>非同期</h2>
+          <p>I/O を伴う処理は <code>async</code> / <code>await</code> を使い、同期ブロックを避けます。キャンセル可能な処理には <code>CancellationToken</code> を渡します。</p>
+        </section>
+
+        <section class="section" id="strings">
+          <h2>文字列</h2>
+          <p>短い連結は文字列補間を使い、ループ内の大量連結は <code>StringBuilder</code> を使います。raw string literal も必要に応じて使います。</p>
+        </section>
+
+        <section class="section" id="exceptions">
+          <h2>例外処理</h2>
+          <p>捕捉する例外は扱えるものに絞り、再送出では情報を失わない形を優先します。<code>using</code> で済むなら、解放処理のためだけに <code>try-finally</code> を使いません。</p>
+        </section>
+
+        <section class="section" id="operators">
+          <h2>論理演算子</h2>
+          <p>比較では <code>&amp;&amp;</code> と <code>||</code> を使い、ビット演算との混同を避けます。短絡評価が必要な場面では、評価順も意識します。</p>
+        </section>
+
+        <section class="section" id="delegates">
+          <h2>delegate と func/action</h2>
+          <p>単純な処理は <code>Func&lt;&gt;</code> / <code>Action&lt;&gt;</code> を使い、不要な delegate 型の追加は避けます。独自 delegate が必要な場合は、公開契約として意味を持たせます。</p>
+        </section>
+
+        <section class="section" id="events">
+          <h2>イベント</h2>
+          <p>解除不要なら lambda で書き、後で外す必要があるなら明示的なメソッドを使います。イベントの購読と解除の関係が追える形を優先します。</p>
+        </section>
+      </main>
+
+      <aside class="summary" aria-label="文書情報">
+        <h2>文書情報</h2>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>ページ</th>
+              <td>コーディング規約 / C#</td>
+            </tr>
+            <tr>
+              <th>基準</th>
+              <td>.NET の標準 C# 規約</td>
+            </tr>
+            <tr>
+              <th>用途</th>
+              <td>公開資料</td>
+            </tr>
+            <tr>
+              <th>補足</th>
+              <td>プロジェクト固有の上書きは別途追加</td>
+            </tr>
+          </tbody>
+        </table>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

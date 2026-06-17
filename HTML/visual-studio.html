@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visual Studio セッティング</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">DevelopmentGuidelines</p>
+      <h1 class="title">Visual Studio セッティング</h1>
+      <p class="lead">Visual Studio 側で固定したい設定、拡張機能、分析ルール、ソリューション構成の基準をまとめます。</p>
+      <div class="meta">
+        <span class="chip">対象: Visual Studio</span>
+        <span class="chip">観点: 開発環境</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel">
+        <h2>目次</h2>
+        <ul class="toc">
+          <li><a href="index.html">トップ</a></li>
+          <li><a href="#editorconfig">EditorConfig</a></li>
+          <li><a href="#analysis">分析</a></li>
+          <li><a href="#extensions">拡張機能</a></li>
+          <li><a href="#solution">ソリューション</a></li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <section class="section" id="editorconfig">
+          <h2>EditorConfig</h2>
+          <p><code>.editorconfig</code> を基準に、インデント、改行、名前付け、コードスタイルを揃えます。Visual Studio の個人設定だけに依存しません。</p>
+        </section>
+
+        <section class="section" id="analysis">
+          <h2>分析</h2>
+          <div class="grid">
+            <div class="card"><h3>Code Analysis</h3><p>規約違反をビルドや編集時に見つけやすくします。</p></div>
+            <div class="card"><h3>Severity</h3><p>どこまでを警告、どこからをエラーにするかを記録します。</p></div>
+          </div>
+        </section>
+
+        <section class="section" id="extensions">
+          <h2>拡張機能</h2>
+          <p>必要な拡張機能、テンプレート、スニペットを記録します。入れすぎず、役割が明確なものを優先します。</p>
+        </section>
+
+        <section class="section" id="solution">
+          <h2>ソリューション</h2>
+          <div class="grid">
+            <div class="card"><h3>構成</h3><p>ソリューションの分割単位とプロジェクト構成を記録します。</p></div>
+            <div class="card"><h3>起動設定</h3><p>起動プロジェクトやデバッグ構成の標準を記録します。</p></div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="summary">
+        <h2>文書情報</h2>
+        <table class="table">
+          <tbody>
+            <tr><th>ページ</th><td>Visual Studio セッティング</td></tr>
+            <tr><th>用途</th><td>開発環境の公開資料</td></tr>
+            <tr><th>主な対象</th><td>.editorconfig / Analysis / Solution</td></tr>
+          </tbody>
+        </table>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

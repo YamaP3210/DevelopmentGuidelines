@@ -3,301 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DevelopmentGuidelines</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f3f1eb;
-      --paper: #fffdf8;
-      --paper-strong: #ffffff;
-      --text: #1f2328;
-      --muted: #5e646d;
-      --border: #d8d0c2;
-      --border-strong: #c1b39b;
-      --accent: #8b5e34;
-      --accent-soft: #f4eadf;
-      --accent-ink: #5f3d21;
-      --code-bg: #f7f4ee;
-      --shadow: 0 16px 40px rgba(66, 50, 34, 0.08);
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background:
-        radial-gradient(circle at top left, rgba(139, 94, 52, 0.10), transparent 32%),
-        linear-gradient(180deg, #f8f4ec 0%, var(--bg) 100%);
-      color: var(--text);
-      font: 16px/1.75 "Yu Gothic UI", "Meiryo", system-ui, sans-serif;
-    }
-
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .page {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 24px;
-    }
-
-    .hero {
-      background:
-        linear-gradient(135deg, rgba(139, 94, 52, 0.98), rgba(96, 61, 33, 0.95));
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 22px;
-      padding: 28px 28px 24px;
-      box-shadow: var(--shadow);
-    }
-
-    .eyebrow {
-      margin: 0 0 8px;
-      color: rgba(255, 255, 255, 0.78);
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .title {
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.15;
-      letter-spacing: 0.02em;
-    }
-
-    .lead {
-      max-width: 980px;
-      margin: 14px 0 0;
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 1.03rem;
-    }
-
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 14px;
-      margin-top: 18px;
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      color: #fff;
-      font-size: 0.92rem;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 260px minmax(0, 1fr) 300px;
-      gap: 20px;
-      align-items: start;
-      margin-top: 20px;
-    }
-
-    .panel,
-    .content,
-    .summary {
-      background: rgba(255, 253, 248, 0.9);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(6px);
-    }
-
-    .panel {
-      position: sticky;
-      top: 16px;
-      padding: 16px;
-    }
-
-    .panel h2,
-    .summary h2,
-    .content h2 {
-      margin: 0 0 12px;
-      font-size: 1.15rem;
-      line-height: 1.3;
-    }
-
-    .toc {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      font-size: 0.96rem;
-    }
-
-    .toc li + li { margin-top: 2px; }
-    .toc a {
-      display: block;
-      padding: 7px 10px;
-      border-radius: 10px;
-      color: var(--text);
-    }
-
-    .toc a:hover {
-      background: var(--accent-soft);
-      text-decoration: none;
-    }
-
-    .content {
-      padding: 0 24px 24px;
-      min-width: 0;
-    }
-
-    .section {
-      padding-top: 16px;
-      margin-top: 22px;
-      border-top: 1px solid var(--border);
-    }
-
-    .section:first-of-type {
-      margin-top: 18px;
-      border-top: 0;
-      padding-top: 0;
-    }
-
-    .section h2 {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .section h2::before {
-      content: "";
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 0 5px rgba(139, 94, 52, 0.12);
-    }
-
-    .callout {
-      margin: 0 0 14px;
-      padding: 14px 16px;
-      border-radius: 14px;
-      background: var(--accent-soft);
-      border: 1px solid rgba(139, 94, 52, 0.18);
-      color: var(--accent-ink);
-    }
-
-    p { margin: 0 0 12px; }
-    ul, ol {
-      margin: 0 0 14px 22px;
-      padding: 0;
-    }
-
-    li { margin: 0 0 8px; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin: 12px 0 16px;
-    }
-
-    .card {
-      background: var(--paper-strong);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 14px 16px;
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 1rem;
-    }
-
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 10px 0 14px;
-      overflow: hidden;
-      border-radius: 14px;
-      background: var(--paper-strong);
-    }
-
-    .table th,
-    .table td {
-      border: 1px solid var(--border);
-      padding: 10px 12px;
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .table th {
-      background: #f2e9dc;
-      width: 28%;
-    }
-
-    code, pre {
-      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
-      font-size: 0.95em;
-    }
-
-    code {
-      background: var(--code-bg);
-      padding: 0.12em 0.35em;
-      border: 1px solid #e4d8c9;
-      border-radius: 6px;
-    }
-
-    pre {
-      background: var(--code-bg);
-      border: 1px solid #e4d8c9;
-      border-radius: 14px;
-      padding: 14px 16px;
-      overflow: auto;
-      margin: 0 0 14px;
-    }
-
-    .summary {
-      padding: 16px;
-    }
-
-    .summary ul {
-      margin-left: 18px;
-    }
-
-    .footer {
-      margin-top: 18px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    @media (max-width: 1120px) {
-      .layout { grid-template-columns: 1fr; }
-      .panel { position: static; }
-    }
-
-    @media (max-width: 720px) {
-      .page { padding: 12px; }
-      .hero { padding: 22px 18px 18px; border-radius: 18px; }
-      .content { padding: 0 16px 18px; }
-      .grid { grid-template-columns: 1fr; }
-      .table th { width: auto; }
-    }
-  </style>
+  <title>開発ガイドライン</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="page">
     <header class="hero">
       <p class="eyebrow">DevelopmentGuidelines</p>
-      <h1 class="title">開発基本仕様書</h1>
+      <h1 class="title">開発ガイドライン</h1>
       <p class="lead">
-        この文書は、DevelopmentGuidelines における開発基本仕様書です。
-        C# コーディング規約を中核に、Unity、Visual Studio、基本アーキテクチャ、運用上の取り決めを分野別に記録します。
+        システム・ソフトウェア開発で参照する公開資料の入口です。
+        ここから、C# コーディング規約、基本アーキテクチャ、Unity、Visual Studio、テスト、レビューの各ページへ進みます。
       </p>
       <div class="meta" aria-label="文書メタ情報">
-        <span class="chip">読者: 開発者 / レビュー担当 / 保守担当</span>
         <span class="chip">主対象: C# 開発</span>
-        <span class="chip">補助対象: Visual Studio / Unity</span>
+        <span class="chip">補助対象: Unity / Visual Studio</span>
+        <span class="chip">構成: セクション別ページ</span>
       </div>
     </header>
 
@@ -306,14 +27,8 @@
         <h2>目次</h2>
         <ul class="toc">
           <li><a href="#overview">概要</a></li>
-          <li><a href="#sections">セクション一覧</a></li>
-          <li><a href="#csharp">C# コーディング規約</a></li>
-          <li><a href="#architecture">基本アーキテクチャ</a></li>
-          <li><a href="#unity">Unity セッティング</a></li>
-          <li><a href="#visualstudio">Visual Studio セッティング</a></li>
-          <li><a href="#testing">テスト方針</a></li>
-          <li><a href="#review">レビュー観点</a></li>
-          <li><a href="#change-log">変更履歴</a></li>
+          <li><a href="#pages">ページ一覧</a></li>
+          <li><a href="#docs">文書情報</a></li>
         </ul>
       </aside>
 
@@ -321,187 +36,60 @@
         <section class="section" id="overview">
           <h2>概要</h2>
           <p class="callout">
-            これはシステム・ソフトウェア開発者が遵守すべき基本ルール・方針をまとめた「開発規約仕様書」です。
+            このページは、開発ガイドライン全体の案内ページです。本文は各セクションページに分けて記録します。
           </p>
         </section>
 
-        <section class="section" id="sections">
-          <h2>セクション一覧</h2>
+        <section class="section" id="pages">
+          <h2>ページ一覧</h2>
           <div class="grid">
             <div class="card">
-              <h3><a href="#csharp">C# コーディング規約</a></h3>
-              <p>C# の命名、構文、例外、非同期処理、データ表現の基準をまとめます。</p>
+              <h3><a href="coding-standards.html">コーディング規約 / C#</a></h3>
+              <p>.NET 標準を土台にした C# の命名、表記、初期化、コレクション、ツール、非同期、例外などの規約です。</p>
             </div>
             <div class="card">
-              <h3><a href="#architecture">基本アーキテクチャ</a></h3>
-              <p>MVC、MVVM、レイヤード構成など、開発で採用する構造の方針をまとめます。</p>
+              <h3><a href="architecture.html">基本アーキテクチャ</a></h3>
+              <p>MVC、MVVM、レイヤード構成など、設計の軸をまとめます。</p>
             </div>
             <div class="card">
-              <h3><a href="#unity">Unity セッティング</a></h3>
-              <p>Unity のバージョン、設定、アセット運用、Editor 拡張の方針をまとめます。</p>
+              <h3><a href="unity.html">Unity セッティング</a></h3>
+              <p>Unity の設定、アセット運用、Editor 拡張、ビルドまわりの基準です。</p>
             </div>
             <div class="card">
-              <h3><a href="#visualstudio">Visual Studio セッティング</a></h3>
-              <p>フォーマット、分析、拡張機能、ソリューション構成の方針をまとめます。</p>
+              <h3><a href="visual-studio.html">Visual Studio セッティング</a></h3>
+              <p>フォーマット、分析、拡張機能、ソリューション構成の基準です。</p>
             </div>
             <div class="card">
-              <h3><a href="#testing">テスト方針</a></h3>
+              <h3><a href="testing.html">テスト方針</a></h3>
               <p>ユニットテスト、PlayMode テスト、再発防止の考え方をまとめます。</p>
             </div>
             <div class="card">
-              <h3><a href="#review">レビュー観点</a></h3>
-              <p>命名、責務分割、例外、null、安全性、変更影響の確認観点をまとめます。</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="section" id="csharp">
-          <h2>C# コーディング規約</h2>
-          <p>ここには C# の実装規約を集約します。項目ごとに細分化して追記していきます。</p>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>分類</th>
-                <th>記録内容の例</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>命名</td>
-                <td>型名、メンバー名、ローカル変数、イベント、インターフェースの付け方</td>
-              </tr>
-              <tr>
-                <td>構文</td>
-                <td><code>var</code>、<code>record</code>、<code>using</code>、パターンマッチ、初期化子</td>
-              </tr>
-              <tr>
-                <td>例外</td>
-                <td>再送出、境界での捕捉、業務例外とシステム例外の分離</td>
-              </tr>
-              <tr>
-                <td>非同期</td>
-                <td><code>async</code> / <code>await</code>、キャンセル、同期ブロックの回避</td>
-              </tr>
-              <tr>
-                <td>データ表現</td>
-                <td>DTO、Entity、値オブジェクト、列挙型、コレクションの扱い</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>必要に応じて、ここに詳細ルールの章を追加します。</p>
-        </section>
-
-        <section class="section" id="architecture">
-          <h2>基本アーキテクチャ</h2>
-          <p>この章では、開発時に採用する構造を整理します。MVC、MVVM、レイヤード構成などの前提をここに書きます。</p>
-          <div class="grid">
-            <div class="card">
-              <h3>考える観点</h3>
-              <ul>
-                <li>責務分割が明確か</li>
-                <li>依存方向が一方通行か</li>
-                <li>UI、状態、ドメイン、I/O が混ざっていないか</li>
-              </ul>
+              <h3><a href="review.html">レビュー観点</a></h3>
+              <p>命名、責務分割、例外、null、安全性、変更影響の確認観点です。</p>
             </div>
             <div class="card">
-              <h3>記録する内容</h3>
-              <ul>
-                <li>MVC / MVVM の使い分け</li>
-                <li>Presenter や Service の位置付け</li>
-                <li>Unity でのシーン構成や責務の割り当て</li>
-              </ul>
+              <h3><a href="changelog.html">変更履歴</a></h3>
+              <p>文書の更新履歴と、構成の変化を追跡します。</p>
             </div>
           </div>
         </section>
-
-        <section class="section" id="unity">
-          <h2>Unity セッティング</h2>
-          <p>Unity で共通化したい設定、運用、制約をここに書きます。</p>
-          <ul>
-            <li>使用する Unity バージョンと更新方針</li>
-            <li>アセンブリ定義の分割方針</li>
-            <li>入力、解像度、品質、ビルド設定の標準</li>
-            <li>シーン命名、プレハブ管理、アセット配置のルール</li>
-            <li>Editor 拡張やツールスクリプトの扱い</li>
-          </ul>
-          <pre><code>Unity/
-  Assets/
-  Packages/
-  ProjectSettings/
-</code></pre>
-        </section>
-
-        <section class="section" id="visualstudio">
-          <h2>Visual Studio セッティング</h2>
-          <p>Visual Studio 側で固定したい設定や拡張機能を整理します。</p>
-          <ul>
-            <li>コードフォーマットとインデントの標準</li>
-            <li><code>.editorconfig</code> と分析ルールの運用</li>
-            <li>必要な拡張機能、テンプレート、スニペット</li>
-            <li>デバッグ、プロファイル、ショートカットの共通化</li>
-            <li>ソリューション構成、起動プロジェクト、ビルド構成</li>
-          </ul>
-        </section>
-
-        <section class="section" id="testing">
-          <h2>テスト方針</h2>
-          <p>テストは、規約を実装に定着させるための手段として扱います。</p>
-          <ul>
-            <li>ロジックの中心はユニットテストで担保する</li>
-            <li>Unity 特有の挙動は必要に応じて PlayMode テストで確認する</li>
-            <li>バグ修正は再発防止テストを優先する</li>
-            <li>テスト名は前提、操作、期待結果が読める形にする</li>
-          </ul>
-        </section>
-
-        <section class="section" id="review">
-          <h2>レビュー観点</h2>
-          <ul>
-            <li>命名が意味を表しているか</li>
-            <li>責務が適切に分かれているか</li>
-            <li>例外、null、非同期、ログの扱いに無理がないか</li>
-            <li>設定や手順が環境差分に耐えられるか</li>
-            <li>仕様変更時に関連文書も更新されるか</li>
-          </ul>
-        </section>
-
-        <section class="section" id="change-log">
-          <h2>変更履歴</h2>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>日付</th>
-                <th>内容</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>2026-06-17</td>
-                <td>基準文書を <code>DevelopmentGuidelines</code> として再構成し、C#、Unity、Visual Studio、基本アーキテクチャの章を追加</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="callout">
-            今後はこのページを基準に、分野ごとのルールを追記していきます。
-          </div>
-        </section>
-
-        <div class="footer">
-          DevelopmentGuidelines / 開発基本仕様書
-        </div>
       </main>
 
-      <aside class="summary" aria-label="文書情報">
+      <aside class="summary" id="docs" aria-label="文書情報">
         <h2>文書情報</h2>
         <table class="table">
           <tbody>
             <tr>
               <th>文書名</th>
-              <td>DevelopmentGuidelines</td>
+              <td>開発ガイドライン</td>
             </tr>
             <tr>
               <th>用途</th>
-              <td>開発基本仕様書</td>
+              <td>公開資料</td>
+            </tr>
+            <tr>
+              <th>構成</th>
+              <td>セクション別ページ</td>
             </tr>
             <tr>
               <th>主対象</th>
@@ -511,12 +99,11 @@
               <th>補助対象</th>
               <td>Unity / Visual Studio / 設計方針</td>
             </tr>
-            <tr>
-              <th>管理方針</th>
-              <td>分野別セクションに分けて追記</td>
-            </tr>
           </tbody>
         </table>
+        <div class="callout">
+          必要な章だけを開けるように、内容はページ単位で分けています。
+        </div>
       </aside>
     </div>
   </div>

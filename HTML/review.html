@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>レビュー観点</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">DevelopmentGuidelines</p>
+      <h1 class="title">レビュー観点</h1>
+      <p class="lead">命名、責務分割、例外、null、安全性、変更影響の確認観点をまとめます。</p>
+      <div class="meta">
+        <span class="chip">対象: レビュー</span>
+        <span class="chip">観点: 品質確認</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel">
+        <h2>目次</h2>
+        <ul class="toc">
+          <li><a href="index.html">トップ</a></li>
+          <li><a href="#naming">命名</a></li>
+          <li><a href="#responsibility">責務</a></li>
+          <li><a href="#safety">安全性</a></li>
+          <li><a href="#impact">影響範囲</a></li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <section class="section" id="naming">
+          <h2>命名</h2>
+          <p>名前が意味を表しているかを確認します。読み手が実装意図を推測しなくて済む形を優先します。</p>
+        </section>
+
+        <section class="section" id="responsibility">
+          <h2>責務</h2>
+          <div class="grid">
+            <div class="card"><h3>分割</h3><p>責務が分散しすぎていないかを確認します。</p></div>
+            <div class="card"><h3>肥大化</h3><p>クラスやメソッドが大きくなりすぎていないかを確認します。</p></div>
+          </div>
+        </section>
+
+        <section class="section" id="safety">
+          <h2>安全性</h2>
+          <p>例外、null、非同期、ログの扱いに無理がないかを確認します。後から問題を追いやすい形を優先します。</p>
+        </section>
+
+        <section class="section" id="impact">
+          <h2>影響範囲</h2>
+          <p>変更の影響範囲に対してテストが十分か、関連文書も更新されているかを確認します。</p>
+        </section>
+      </main>
+
+      <aside class="summary">
+        <h2>文書情報</h2>
+        <table class="table">
+          <tbody>
+            <tr><th>ページ</th><td>レビュー観点</td></tr>
+            <tr><th>用途</th><td>確認基準の公開資料</td></tr>
+            <tr><th>主な対象</th><td>命名 / 責務 / 安全性 / 影響</td></tr>
+          </tbody>
+        </table>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
