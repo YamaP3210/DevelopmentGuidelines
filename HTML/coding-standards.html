@@ -131,6 +131,7 @@
           <p class="callout">書式は、まずサンプルで示し、その後に補足を読む形を基準にします。</p>
           <p>using の並び、空行、namespace の位置、波括弧の置き方は、読みやすさを優先して次の形を基準にします。</p>
           <pre><code class="language-csharp">using System;
+using System.Collections.Generic;
 using System.IO;
 
 using UnityEngine;
@@ -152,6 +153,43 @@ namespace XXX.Client.UI
     }
 }</code></pre>
           <p>using はカテゴリごとに 1 行空け、カテゴリ内はアルファベット順に並べます。namespace の前には 5 行空け、波括弧は次の行に置きます。</p>
+          <p>クラス内部は、カテゴリの切り替えを 5 行空け、同一カテゴリ内の項目は 3 行空けます。メソッド内の処理の塊は 1 行空けて区切ります。</p>
+          <pre><code class="language-csharp">public class XXXClientWindow
+{
+    private int _counter;
+
+
+
+    private readonly List<string> _messages = new List<string>();
+
+
+
+
+
+    public string Title { get; set; }
+
+
+
+
+
+    public void Refresh()
+    {
+        _counter++;
+
+        _messages.Add($"Refresh {_counter}");
+
+        Console.WriteLine($"Refresh {_counter}");
+        Debug.Log($"Refresh {_counter}");
+    }
+
+
+
+
+
+    private class XXXClientHelper
+    {
+    }
+}</code></pre>
         </section>
 
         <section class="section" id="collections">
