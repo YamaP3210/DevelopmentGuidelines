@@ -34,6 +34,16 @@
         <section class="section" id="editorconfig">
           <h2>EditorConfig</h2>
           <p><code>.editorconfig</code> を基準に、インデント、改行、名前付け、コードスタイルを揃えます。改行は Visual Studio 標準の <code>CRLF</code> を基準にします。Visual Studio の個人設定だけに依存しません。</p>
+          <pre><code class="language-ini">root = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+tab_width = 4
+end_of_line = crlf
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true</code></pre>
           <div class="grid">
             <div class="card"><h3>改行</h3><p>テキストファイルは Visual Studio 標準の CRLF を基準にします。</p></div>
           </div>

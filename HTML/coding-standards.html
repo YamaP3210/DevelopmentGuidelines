@@ -13,7 +13,7 @@
       <h1 class="title">コーディング規約 / C#</h1>
       <p class="lead">
         .NET の公開ガイドラインを土台にした C# の規約ページです。
-        命名、表記、初期化、コレクション、ツール、非同期、文字列、例外、論理演算子、delegate、イベントの規約です。
+        命名、表記、初期化、書式、コレクション、ツール、非同期、文字列、例外、論理演算子、delegate、イベントの規約です。
       </p>
       <div class="meta" aria-label="文書メタ情報">
         <span class="chip">基準: Microsoft Learn</span>
@@ -30,6 +30,7 @@
           <li><a href="#overview">概要</a></li>
           <li><a href="#naming">命名</a></li>
           <li><a href="#representation">表記と初期化</a></li>
+          <li><a href="#formatting">書式</a></li>
           <li><a href="#collections">コレクション</a></li>
           <li><a href="#tools">ツール</a></li>
           <li><a href="#async">非同期</a></li>
@@ -48,7 +49,7 @@
             このページは、C# のコーディング規約を示します。
           </p>
           <p>
-            命名、表記、初期化、コレクション、ツール、非同期、文字列、例外、論理演算子、delegate、イベントを扱います。
+            命名、表記、初期化、書式、コレクション、ツール、非同期、文字列、例外、論理演算子、delegate、イベントを扱います。
           </p>
         </section>
 
@@ -123,6 +124,34 @@
               <p>文字列補間、raw string literal、<code>new()</code>、オブジェクト初期化子、<code>required</code> を適切に使います。</p>
             </div>
           </div>
+        </section>
+
+        <section class="section" id="formatting">
+          <h2>書式</h2>
+          <p class="callout">書式は、まずサンプルで示し、その後に補足を読む形を基準にします。</p>
+          <p>using の並び、空行、namespace の位置、波括弧の置き方は、読みやすさを優先して次の形を基準にします。</p>
+          <pre><code class="language-csharp">using System;
+using System.IO;
+
+using UnityEngine;
+using UnityEngine.UI;
+
+using ThirdPartyLib.Network;
+
+using CaseLib.Calc;
+using MyLib.Tools;
+
+
+
+
+
+namespace XXX.Client.UI
+{
+    public class XXXClientWindow
+    {
+    }
+}</code></pre>
+          <p>using はカテゴリごとに 1 行空け、カテゴリ内はアルファベット順に並べます。namespace の前には 5 行空け、波括弧は次の行に置きます。</p>
         </section>
 
         <section class="section" id="collections">
