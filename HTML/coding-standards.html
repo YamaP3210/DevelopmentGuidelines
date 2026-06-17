@@ -54,34 +54,55 @@
 
         <section class="section" id="naming">
           <h2>命名</h2>
+          <p class="callout">命名は、具体的な書式ルールと、判断の考え方を分けて扱います。</p>
+
+          <h3>規則</h3>
           <div class="grid">
             <div class="card">
-              <h4>案件識別子</h4>
-              <p>案件には識別子があり、そこから生み出されたものの接頭辞として使うことを原則にします。ファイル名、クラス名、名前空間、設定名などの先頭に付けますが、ファイル名固定のライブラリやリネームできない資産のような技術的制約がある場合は例外を認めます。</p>
-            </div>
-            <div class="card">
               <h4>名前空間</h4>
-              <p>ルート名前空間は案件識別子から始めます。ケース内フォルダ構造と完全一致させる必要はなく、基本はフォルダに沿って考えつつ、カテゴライズ、利便性、可読性を優先して組みます。</p>
+              <p>ルート名前空間はケース識別子から始めます。ケース内フォルダ構造と完全一致させる必要はなく、基本はフォルダに沿って考えつつ、カテゴライズ、利便性、可読性を優先して組みます。</p>
+              <p>たとえば、ケース識別子が <code>XXX</code> なら、<code>XXX.Client.UI</code>、<code>XXX.Client.Tools</code>、<code>XXX.Server.Core</code> のように、役割や配置で分ける形が考えられます。</p>
+              <p>よほどの理由がない限り、ケース間で名前空間を共有しません。<code>XXX</code> を共有するということは <code>XXX</code> 内で完結させる考え方であり、別のケースから関与するなら <code>YYY</code> のように別の名前空間で扱います。</p>
             </div>
             <div class="card">
-              <h4>型名とメンバー名</h4>
-              <p>型名と公開メンバーは PascalCase を使います。外部から参照される名前ほど、.NET の慣例に寄せます。</p>
+              <h4>クラス名</h4>
+              <p>クラス名はケース識別子の直後に PascalCase を続けます。<code>_</code> のような連結記号は使いません。たとえば、ケース識別子が <code>XXX</code> で、略語を含む接続名なら <code>XXXTCPConnection</code> のように続けます。</p>
             </div>
             <div class="card">
-              <h4>メンバー名と変数</h4>
-              <p>プロパティ、メソッド、イベント、定数は PascalCase を優先します。ローカル変数、引数、private フィールドは camelCase を使います。</p>
+              <h4>型名</h4>
+              <p><code>class</code>、<code>struct</code>、<code>enum</code> の型名は、クラス名と同じくケース識別子の直後に PascalCase を続けます。</p>
             </div>
             <div class="card">
-              <h4>インターフェースと属性</h4>
-              <p>インターフェース名は <code>I</code> で始め、属性型は <code>Attribute</code> で終えます。</p>
+              <h4>インターフェース</h4>
+              <p>インターフェース名は <code>I</code> + ケース識別子 + PascalCase で続けます。属性型は <code>Attribute</code> で終えます。</p>
+            </div>
+            <div class="card">
+              <h4>プロパティ</h4>
+              <p>プロパティは PascalCase で書きます。プロパティは状態・設定・パラメータを表すために用い、処理をさせるためのものとして扱いません。private プロパティは、それがプロパティである理由が明確な場合に使い、必要性が薄いならフィールドの使用を検討します。詳細はフィールド・プロパティの使い分けで扱います。</p>
+            </div>
+            <div class="card">
+              <h4>フィールド</h4>
+              <p>フィールドは <code>_</code> + camelCase で書きます。公開フィールドは原則として使わず、必要がある場合でも慎重に扱います。</p>
+            </div>
+            <div class="card">
+              <h4>メソッド・イベント・定数</h4>
+              <p>メソッドは動詞で、イベントと定数は PascalCase を使います。ローカル変数、引数、private フィールドは camelCase を使います。</p>
             </div>
             <div class="card">
               <h4>識別子の基本</h4>
               <p>識別子は先頭に文字または <code>_</code> を使い、必要なら <code>@if</code> のように verbatim identifier を使えます。</p>
             </div>
+          </div>
+
+          <h3>備考</h3>
+          <div class="grid">
+            <div class="card">
+              <h4>ケース識別子</h4>
+              <p>ケースには識別子があり、そこから生み出されたものの接頭辞として使うことを原則にします。ファイル名、クラス名、名前空間、設定名などの先頭に付けますが、ファイル名固定のライブラリやリネームできない資産のような技術的制約がある場合は例外を認めます。</p>
+            </div>
             <div class="card">
               <h4>略語</h4>
-              <p>一般的な略語以外は避けます。名前空間とアセンブリ名は意味の分かる名前にし、略語を使う場合は .NET 慣例との整合を優先します。</p>
+              <p>略語・頭文字語は大文字のまま扱い、他の語と連結するときも <code>Xxx</code> のように通常の PascalCase に丸めません。たとえば、<code>ID</code> は <code>Id</code> にせず <code>ID</code> のまま、<code>TCP</code> は <code>TCP</code> のまま、<code>UI</code> は <code>UI</code> のまま扱い、名前空間なら <code>XXX.ID</code>、<code>XXX.TCP</code>、<code>XXX.UI</code> のように続けます。略語の意味を保ったまま続けます。ただし、言語規約や外部仕様、技術的制約に抵触する場合は例外を認めます。</p>
             </div>
             <div class="card">
               <h4>命名の優先度</h4>
