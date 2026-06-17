@@ -3,92 +3,121 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CSharp Development Guidelines - Microsoft 標準ベース</title>
+  <title>DevelopmentGuidelines</title>
   <style>
     :root {
       color-scheme: light;
-      --bg: #f8f9fa;
-      --paper: #ffffff;
-      --text: #202122;
-      --muted: #54595d;
-      --border: #a2a9b1;
-      --border-soft: #c8ccd1;
-      --link: #0645ad;
-      --link-visited: #0b0080;
-      --accent: #3366cc;
-      --code-bg: #f6f7f8;
-      --table-head: #eaecf0;
-      --callout: #f8fbff;
+      --bg: #f3f1eb;
+      --paper: #fffdf8;
+      --paper-strong: #ffffff;
+      --text: #1f2328;
+      --muted: #5e646d;
+      --border: #d8d0c2;
+      --border-strong: #c1b39b;
+      --accent: #8b5e34;
+      --accent-soft: #f4eadf;
+      --accent-ink: #5f3d21;
+      --code-bg: #f7f4ee;
+      --shadow: 0 16px 40px rgba(66, 50, 34, 0.08);
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at top left, rgba(139, 94, 52, 0.10), transparent 32%),
+        linear-gradient(180deg, #f8f4ec 0%, var(--bg) 100%);
       color: var(--text);
-      font: 16px/1.7 system-ui, -apple-system, "Segoe UI", sans-serif;
+      font: 16px/1.75 "Yu Gothic UI", "Meiryo", system-ui, sans-serif;
     }
 
-    a { color: var(--link); text-decoration: none; }
-    a:visited { color: var(--link-visited); }
+    a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
     .page {
-      max-width: 1280px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 24px;
     }
 
-    .header {
-      background: var(--paper);
-      border: 1px solid var(--border-soft);
-      padding: 20px 24px;
-      margin-bottom: 20px;
+    .hero {
+      background:
+        linear-gradient(135deg, rgba(139, 94, 52, 0.98), rgba(96, 61, 33, 0.95));
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 22px;
+      padding: 28px 28px 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .title {
-      margin: 0 0 8px;
-      font-size: 2rem;
-      line-height: 1.2;
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.15;
+      letter-spacing: 0.02em;
     }
 
-    .subtitle {
-      margin: 0;
-      color: var(--muted);
+    .lead {
+      max-width: 980px;
+      margin: 14px 0 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.03rem;
     }
 
     .meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px 20px;
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: 0.95rem;
+      gap: 10px 14px;
+      margin-top: 18px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #fff;
+      font-size: 0.92rem;
     }
 
     .layout {
       display: grid;
-      grid-template-columns: 270px minmax(0, 1fr) 290px;
+      grid-template-columns: 260px minmax(0, 1fr) 300px;
       gap: 20px;
       align-items: start;
+      margin-top: 20px;
     }
 
-    .sidebar,
+    .panel,
     .content,
-    .infobox {
-      background: var(--paper);
-      border: 1px solid var(--border-soft);
+    .summary {
+      background: rgba(255, 253, 248, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
     }
 
-    .sidebar {
+    .panel {
       position: sticky;
       top: 16px;
       padding: 16px;
     }
 
-    .sidebar h2,
-    .infobox h2,
+    .panel h2,
+    .summary h2,
     .content h2 {
       margin: 0 0 12px;
       font-size: 1.15rem;
@@ -97,50 +126,22 @@
 
     .toc {
       list-style: none;
-      padding: 0;
       margin: 0;
+      padding: 0;
       font-size: 0.96rem;
     }
 
-    .toc li { margin: 0; }
+    .toc li + li { margin-top: 2px; }
     .toc a {
       display: block;
-      padding: 6px 0;
-      color: var(--link);
-      border-bottom: 1px solid transparent;
+      padding: 7px 10px;
+      border-radius: 10px;
+      color: var(--text);
     }
 
-    .infobox {
-      padding: 0;
-      overflow: hidden;
-    }
-
-    .infobox table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.95rem;
-    }
-
-    .infobox caption {
-      padding: 14px 16px;
-      font-weight: 700;
-      text-align: left;
-      background: var(--table-head);
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .infobox th,
-    .infobox td {
-      padding: 10px 12px;
-      vertical-align: top;
-      border-top: 1px solid var(--border-soft);
-    }
-
-    .infobox th {
-      width: 34%;
-      background: #f8f9fa;
-      text-align: left;
-      font-weight: 600;
+    .toc a:hover {
+      background: var(--accent-soft);
+      text-decoration: none;
     }
 
     .content {
@@ -148,366 +149,371 @@
       min-width: 0;
     }
 
-    .article-intro {
-      border-left: 4px solid var(--accent);
-      background: var(--callout);
+    .section {
+      padding-top: 16px;
+      margin-top: 22px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section:first-of-type {
+      margin-top: 18px;
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .section h2 {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section h2::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(139, 94, 52, 0.12);
+    }
+
+    .callout {
+      margin: 0 0 14px;
       padding: 14px 16px;
-      margin: 0 0 20px;
+      border-radius: 14px;
+      background: var(--accent-soft);
+      border: 1px solid rgba(139, 94, 52, 0.18);
+      color: var(--accent-ink);
     }
 
-    .content section {
-      padding-top: 6px;
-      margin-top: 24px;
-      border-top: 1px solid var(--border-soft);
-    }
-
-    .content h3 {
-      margin: 18px 0 10px;
-      font-size: 1.08rem;
-    }
-
-    .content p,
-    .content li {
-      margin: 0 0 10px;
-    }
-
-    .content ul,
-    .content ol {
+    p { margin: 0 0 12px; }
+    ul, ol {
       margin: 0 0 14px 22px;
       padding: 0;
     }
 
-    .content code,
-    .content pre {
-      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
-      font-size: 0.95em;
-    }
+    li { margin: 0 0 8px; }
 
-    .content code {
-      background: var(--code-bg);
-      padding: 0.1em 0.35em;
-      border: 1px solid #eaecf0;
-      border-radius: 3px;
-    }
-
-    pre {
-      background: var(--code-bg);
-      border: 1px solid #eaecf0;
-      padding: 14px 16px;
-      overflow: auto;
-      margin: 0 0 14px;
-    }
-
-    .note {
-      background: #fff8e5;
-      border: 1px solid #f1d189;
-      padding: 12px 14px;
-      margin: 0 0 14px;
-    }
-
-    .two-col {
+    .grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+      gap: 14px;
+      margin: 12px 0 16px;
+    }
+
+    .card {
+      background: var(--paper-strong);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
     }
 
     .table {
       width: 100%;
       border-collapse: collapse;
       margin: 10px 0 14px;
-      font-size: 0.95rem;
+      overflow: hidden;
+      border-radius: 14px;
+      background: var(--paper-strong);
     }
 
     .table th,
     .table td {
-      border: 1px solid var(--border-soft);
-      padding: 9px 10px;
+      border: 1px solid var(--border);
+      padding: 10px 12px;
       text-align: left;
       vertical-align: top;
     }
 
     .table th {
-      background: var(--table-head);
+      background: #f2e9dc;
+      width: 28%;
     }
 
-    .sources {
-      font-size: 0.95rem;
+    code, pre {
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+      font-size: 0.95em;
     }
 
-    .sources ol {
-      margin-left: 20px;
+    code {
+      background: var(--code-bg);
+      padding: 0.12em 0.35em;
+      border: 1px solid #e4d8c9;
+      border-radius: 6px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid #e4d8c9;
+      border-radius: 14px;
+      padding: 14px 16px;
+      overflow: auto;
+      margin: 0 0 14px;
+    }
+
+    .summary {
+      padding: 16px;
+    }
+
+    .summary ul {
+      margin-left: 18px;
     }
 
     .footer {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
       color: var(--muted);
       font-size: 0.92rem;
-      margin-top: 18px;
-      padding: 12px 0 0;
-      border-top: 1px solid var(--border-soft);
     }
 
-    @media (max-width: 1100px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-
-      .sidebar {
-        position: static;
-      }
+    @media (max-width: 1120px) {
+      .layout { grid-template-columns: 1fr; }
+      .panel { position: static; }
     }
 
     @media (max-width: 720px) {
       .page { padding: 12px; }
-      .header,
-      .content,
-      .sidebar,
-      .infobox { border-left: 1px solid var(--border-soft); border-right: 1px solid var(--border-soft); }
+      .hero { padding: 22px 18px 18px; border-radius: 18px; }
       .content { padding: 0 16px 18px; }
-      .two-col { grid-template-columns: 1fr; }
-      .title { font-size: 1.6rem; }
+      .grid { grid-template-columns: 1fr; }
+      .table th { width: auto; }
     }
   </style>
 </head>
 <body>
   <div class="page">
-    <header class="header">
-      <h1 class="title">CSharp Development Guidelines</h1>
-      <p class="subtitle">Microsoft が提示している C# /.NET 標準のコーディング規約をベースにした、規約書用の HTML 版。</p>
-      <div class="meta">
-        <div>文書種別: 標準規約</div>
-        <div>対象: C# / .NET 実装</div>
-        <div>状態: ベースライン</div>
+    <header class="hero">
+      <p class="eyebrow">DevelopmentGuidelines</p>
+      <h1 class="title">開発基本仕様書</h1>
+      <p class="lead">
+        この文書は、DevelopmentGuidelines における開発基本仕様書です。
+        C# コーディング規約を中核に、Unity、Visual Studio、基本アーキテクチャ、運用上の取り決めを分野別に記録します。
+      </p>
+      <div class="meta" aria-label="文書メタ情報">
+        <span class="chip">読者: 開発者 / レビュー担当 / 保守担当</span>
+        <span class="chip">主対象: C# 開発</span>
+        <span class="chip">補助対象: Visual Studio / Unity</span>
       </div>
     </header>
 
     <div class="layout">
-      <aside class="sidebar" aria-label="目次">
+      <aside class="panel" aria-label="目次">
         <h2>目次</h2>
         <ul class="toc">
           <li><a href="#overview">概要</a></li>
-          <li><a href="#scope">適用範囲</a></li>
-          <li><a href="#goals">方針</a></li>
-          <li><a href="#tools">ツールと分析</a></li>
-          <li><a href="#naming">命名規約</a></li>
-          <li><a href="#language">言語ガイドライン</a></li>
-          <li><a href="#strings">文字列</a></li>
-          <li><a href="#construction">初期化</a></li>
-          <li><a href="#collections">配列とコレクション</a></li>
-          <li><a href="#delegates">デリゲート</a></li>
-          <li><a href="#exceptions">例外処理</a></li>
-          <li><a href="#operators">演算子</a></li>
-          <li><a href="#event">イベント</a></li>
-          <li><a href="#static">static メンバー</a></li>
-          <li><a href="#linq">LINQ</a></li>
+          <li><a href="#sections">セクション一覧</a></li>
+          <li><a href="#csharp">C# コーディング規約</a></li>
+          <li><a href="#architecture">基本アーキテクチャ</a></li>
+          <li><a href="#unity">Unity セッティング</a></li>
+          <li><a href="#visualstudio">Visual Studio セッティング</a></li>
+          <li><a href="#testing">テスト方針</a></li>
           <li><a href="#review">レビュー観点</a></li>
-          <li><a href="#sources">出典</a></li>
+          <li><a href="#change-log">変更履歴</a></li>
         </ul>
       </aside>
 
       <main class="content">
-        <p class="article-intro" id="overview">
-          この文書は、Microsoft Learn の C# コーディング規約をベースに、プロジェクト共通の標準規約として読めるように整理したものです。
-          ここではまだ独自ルールを足さず、標準側の方針をそのまま土台として残します。
-        </p>
-
-        <section id="scope">
-          <h2>適用範囲</h2>
-          <p>新規実装、改修、レビュー、保守、サンプルコード、共通部品の記述に適用します。</p>
-          <p>個別案件で追加の制約が必要な場合は、この文書を基準に差分として追記します。</p>
+        <section class="section" id="overview">
+          <h2>概要</h2>
+          <p class="callout">
+            これはシステム・ソフトウェア開発者が遵守すべき基本ルール・方針をまとめた「開発規約仕様書」です。
+          </p>
         </section>
 
-        <section id="goals">
-          <h2>方針</h2>
-          <div class="two-col">
-            <div>
+        <section class="section" id="sections">
+          <h2>セクション一覧</h2>
+          <div class="grid">
+            <div class="card">
+              <h3><a href="#csharp">C# コーディング規約</a></h3>
+              <p>C# の命名、構文、例外、非同期処理、データ表現の基準をまとめます。</p>
+            </div>
+            <div class="card">
+              <h3><a href="#architecture">基本アーキテクチャ</a></h3>
+              <p>MVC、MVVM、レイヤード構成など、開発で採用する構造の方針をまとめます。</p>
+            </div>
+            <div class="card">
+              <h3><a href="#unity">Unity セッティング</a></h3>
+              <p>Unity のバージョン、設定、アセット運用、Editor 拡張の方針をまとめます。</p>
+            </div>
+            <div class="card">
+              <h3><a href="#visualstudio">Visual Studio セッティング</a></h3>
+              <p>フォーマット、分析、拡張機能、ソリューション構成の方針をまとめます。</p>
+            </div>
+            <div class="card">
+              <h3><a href="#testing">テスト方針</a></h3>
+              <p>ユニットテスト、PlayMode テスト、再発防止の考え方をまとめます。</p>
+            </div>
+            <div class="card">
+              <h3><a href="#review">レビュー観点</a></h3>
+              <p>命名、責務分割、例外、null、安全性、変更影響の確認観点をまとめます。</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="csharp">
+          <h2>C# コーディング規約</h2>
+          <p>ここには C# の実装規約を集約します。項目ごとに細分化して追記していきます。</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>分類</th>
+                <th>記録内容の例</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>命名</td>
+                <td>型名、メンバー名、ローカル変数、イベント、インターフェースの付け方</td>
+              </tr>
+              <tr>
+                <td>構文</td>
+                <td><code>var</code>、<code>record</code>、<code>using</code>、パターンマッチ、初期化子</td>
+              </tr>
+              <tr>
+                <td>例外</td>
+                <td>再送出、境界での捕捉、業務例外とシステム例外の分離</td>
+              </tr>
+              <tr>
+                <td>非同期</td>
+                <td><code>async</code> / <code>await</code>、キャンセル、同期ブロックの回避</td>
+              </tr>
+              <tr>
+                <td>データ表現</td>
+                <td>DTO、Entity、値オブジェクト、列挙型、コレクションの扱い</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>必要に応じて、ここに詳細ルールの章を追加します。</p>
+        </section>
+
+        <section class="section" id="architecture">
+          <h2>基本アーキテクチャ</h2>
+          <p>この章では、開発時に採用する構造を整理します。MVC、MVVM、レイヤード構成などの前提をここに書きます。</p>
+          <div class="grid">
+            <div class="card">
+              <h3>考える観点</h3>
               <ul>
-                <li>可読性、整合性、保守性を優先する。</li>
-                <li>既存コードと整合する書き方を基本にする。</li>
-                <li>コードは学習資料としても使える水準を目指す。</li>
+                <li>責務分割が明確か</li>
+                <li>依存方向が一方通行か</li>
+                <li>UI、状態、ドメイン、I/O が混ざっていないか</li>
               </ul>
             </div>
-            <div>
+            <div class="card">
+              <h3>記録する内容</h3>
               <ul>
-                <li>複雑さを増やす記法は避ける。</li>
-                <li>意図が分かる名前と構造を重視する。</li>
-                <li>最新の C# 機能は、明快さを損なわない範囲で採用する。</li>
+                <li>MVC / MVVM の使い分け</li>
+                <li>Presenter や Service の位置付け</li>
+                <li>Unity でのシーン構成や責務の割り当て</li>
               </ul>
             </div>
           </div>
         </section>
 
-        <section id="tools">
-          <h2>ツールと分析</h2>
-          <p>Microsoft は、<a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions" target="_blank" rel="noopener">Common C# code conventions</a>
-             の中で、code analysis と <code>.editorconfig</code> を用いて規約を強制することを案内しています。</p>
-          <p>この文書でも、最終的には IDE と CI で自動検査できる規約を前提にします。</p>
+        <section class="section" id="unity">
+          <h2>Unity セッティング</h2>
+          <p>Unity で共通化したい設定、運用、制約をここに書きます。</p>
+          <ul>
+            <li>使用する Unity バージョンと更新方針</li>
+            <li>アセンブリ定義の分割方針</li>
+            <li>入力、解像度、品質、ビルド設定の標準</li>
+            <li>シーン命名、プレハブ管理、アセット配置のルール</li>
+            <li>Editor 拡張やツールスクリプトの扱い</li>
+          </ul>
+          <pre><code>Unity/
+  Assets/
+  Packages/
+  ProjectSettings/
+</code></pre>
         </section>
 
-        <section id="naming">
-          <h2>命名規約</h2>
-          <p>Microsoft Learn の <a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names" target="_blank" rel="noopener">C# identifier naming rules and conventions</a> に沿って、基本は次の方針を採ります。</p>
+        <section class="section" id="visualstudio">
+          <h2>Visual Studio セッティング</h2>
+          <p>Visual Studio 側で固定したい設定や拡張機能を整理します。</p>
+          <ul>
+            <li>コードフォーマットとインデントの標準</li>
+            <li><code>.editorconfig</code> と分析ルールの運用</li>
+            <li>必要な拡張機能、テンプレート、スニペット</li>
+            <li>デバッグ、プロファイル、ショートカットの共通化</li>
+            <li>ソリューション構成、起動プロジェクト、ビルド構成</li>
+          </ul>
+        </section>
+
+        <section class="section" id="testing">
+          <h2>テスト方針</h2>
+          <p>テストは、規約を実装に定着させるための手段として扱います。</p>
+          <ul>
+            <li>ロジックの中心はユニットテストで担保する</li>
+            <li>Unity 特有の挙動は必要に応じて PlayMode テストで確認する</li>
+            <li>バグ修正は再発防止テストを優先する</li>
+            <li>テスト名は前提、操作、期待結果が読める形にする</li>
+          </ul>
+        </section>
+
+        <section class="section" id="review">
+          <h2>レビュー観点</h2>
+          <ul>
+            <li>命名が意味を表しているか</li>
+            <li>責務が適切に分かれているか</li>
+            <li>例外、null、非同期、ログの扱いに無理がないか</li>
+            <li>設定や手順が環境差分に耐えられるか</li>
+            <li>仕様変更時に関連文書も更新されるか</li>
+          </ul>
+        </section>
+
+        <section class="section" id="change-log">
+          <h2>変更履歴</h2>
           <table class="table">
             <thead>
               <tr>
-                <th>要素</th>
-                <th>規約</th>
+                <th>日付</th>
+                <th>内容</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>型、名前空間、公開メンバー</td><td>PascalCase</td></tr>
-              <tr><td>private / internal フィールド</td><td>camelCase かつ必要に応じて接頭辞を付ける</td></tr>
-              <tr><td>ローカル変数、メソッド引数</td><td>camelCase</td></tr>
-              <tr><td>インターフェース</td><td><code>I</code> で始める</td></tr>
-              <tr><td>属性型</td><td><code>Attribute</code> で終える</td></tr>
-              <tr><td>定数</td><td>PascalCase</td></tr>
-              <tr><td>型パラメータ</td><td>意味が伝わる名前を使う。単独なら <code>T</code> も可</td></tr>
+              <tr>
+                <td>2026-06-17</td>
+                <td>基準文書を <code>DevelopmentGuidelines</code> として再構成し、C#、Unity、Visual Studio、基本アーキテクチャの章を追加</td>
+              </tr>
             </tbody>
           </table>
-          <p>略語は、広く通用するもの以外は避けます。</p>
-        </section>
-
-        <section id="language">
-          <h2>言語ガイドライン</h2>
-          <ul>
-            <li>利用可能なら、現代的な C# 機能を使う。</li>
-            <li>古い構文は、互換性や明確な理由がある場合のみ使う。</li>
-            <li>汎用的な例外捕捉は避け、扱える例外だけを捕捉する。</li>
-            <li>I/O バウンド処理には <code>async</code> / <code>await</code> を使う。</li>
-            <li>文字列、数値、型名は、可読性が高い標準表現を使う。</li>
-            <li><code>var</code> は型が明確に推測できる場合に限る。</li>
-          </ul>
-        </section>
-
-        <section id="strings">
-          <h2>文字列</h2>
-          <ul>
-            <li>短い文字列連結には文字列補間を使う。</li>
-            <li>ループ内で大量の文字列を連結する場合は <code>StringBuilder</code> を使う。</li>
-            <li>必要なら raw string literals を使う。</li>
-            <li>位置指定の補間より、式ベースの補間を優先する。</li>
-          </ul>
-          <pre><code>string displayName = $"{lastName}, {firstName}";
-var builder = new StringBuilder();
-builder.Append(phrase);</code></pre>
-        </section>
-
-        <section id="construction">
-          <h2>初期化</h2>
-          <ul>
-            <li>record の primary constructor は、公開プロパティとして扱われる前提で命名する。</li>
-            <li>class / struct の primary constructor parameter は camelCase を使う。</li>
-            <li>必須初期化が必要なら <code>required</code> を検討する。</li>
-            <li>オブジェクト初期化子を使って、代入の散在を避ける。</li>
-          </ul>
-        </section>
-
-        <section id="collections">
-          <h2>配列とコレクション</h2>
-          <ul>
-            <li>コレクション初期化には collection expressions を使う。</li>
-            <li>戻り値としては、用途に応じて <code>IEnumerable&lt;T&gt;</code>、<code>IReadOnlyList&lt;T&gt;</code>、<code>List&lt;T&gt;</code> を使い分ける。</li>
-            <li>LINQ は読みやすさを損なわない範囲で使う。</li>
-          </ul>
-        </section>
-
-        <section id="delegates">
-          <h2>デリゲート</h2>
-          <ul>
-            <li>可能なら <code>Func&lt;&gt;</code> と <code>Action&lt;&gt;</code> を使う。</li>
-            <li>独自 delegate 型を作るのは、意味を持つ公開契約が必要な場合に限る。</li>
-            <li>デリゲート呼び出しは、シグネチャが分かる形で書く。</li>
-          </ul>
-        </section>
-
-        <section id="exceptions">
-          <h2>例外処理</h2>
-          <ul>
-            <li>処理できない例外は捕捉しない。</li>
-            <li>再送出は <code>throw;</code> を使う。</li>
-            <li><code>try-catch</code> より、<code>using</code> や設計で解決できるならそちらを優先する。</li>
-            <li>例外メッセージには、調査に必要な文脈を含める。</li>
-          </ul>
-        </section>
-
-        <section id="operators">
-          <h2>演算子</h2>
-          <ul>
-            <li>比較では <code>&&</code> と <code>||</code> を使う。</li>
-            <li><code>new</code> は省略可能な場合、簡潔な記法を使う。</li>
-            <li>オブジェクト初期化子で見通しをよくする。</li>
-          </ul>
-        </section>
-
-        <section id="event">
-          <h2>イベント</h2>
-          <p>解除不要なイベントハンドラには lambda を使い、後で外す必要があるものは明示的なメソッドを使います。</p>
-        </section>
-
-        <section id="static">
-          <h2>static メンバー</h2>
-          <p><code>static</code> メンバーはクラス名で参照し、基底型の static を派生型名で飾る書き方は避けます。</p>
-        </section>
-
-        <section id="linq">
-          <h2>LINQ</h2>
-          <ul>
-            <li>クエリ変数名は意味が分かる名前にする。</li>
-            <li>匿名型のプロパティ名は PascalCase を保つ。</li>
-            <li>複雑なクエリは分解し、読みやすさを優先する。</li>
-            <li>絞り込みは後続の句より先に行う。</li>
-          </ul>
-        </section>
-
-        <section id="review">
-          <h2>レビュー観点</h2>
-          <ul>
-            <li>命名が意味を表しているか。</li>
-            <li>責務が分かれすぎたり、逆に肥大化したりしていないか。</li>
-            <li>例外、null、安全性、非同期の扱いに無理がないか。</li>
-            <li>変更の影響範囲に対してテストが足りているか。</li>
-            <li>標準規約からの逸脱がある場合、その理由が明示されているか。</li>
-          </ul>
-        </section>
-
-        <section id="sources" class="sources">
-          <h2>出典</h2>
-          <ol>
-            <li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions" target="_blank" rel="noopener">Common C# code conventions</a></li>
-            <li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names" target="_blank" rel="noopener">C# identifier naming rules and conventions</a></li>
-          </ol>
-          <div class="note">
-            この HTML は標準版の土台です。次の段階では、ここに独自ルールを追記し、差分が分かる形で更新していきます。
+          <div class="callout">
+            今後はこのページを基準に、分野ごとのルールを追記していきます。
           </div>
         </section>
 
         <div class="footer">
-          最終更新: 2026-06-17 / 参照用 HTML 規約書
+          DevelopmentGuidelines / 開発基本仕様書
         </div>
       </main>
 
-      <aside class="infobox" aria-label="概要">
-        <table>
-          <caption>文書情報</caption>
+      <aside class="summary" aria-label="文書情報">
+        <h2>文書情報</h2>
+        <table class="table">
           <tbody>
             <tr>
               <th>文書名</th>
-              <td>CSharp Development Guidelines</td>
-            </tr>
-            <tr>
-              <th>ベース</th>
-              <td>Microsoft Learn の C# コーディング規約</td>
+              <td>DevelopmentGuidelines</td>
             </tr>
             <tr>
               <th>用途</th>
-              <td>システム開発プロジェクトの共通規約書</td>
+              <td>開発基本仕様書</td>
             </tr>
             <tr>
-              <th>構成</th>
-              <td>Wikipedia 風の本文 + 目次 + 概要欄</td>
+              <th>主対象</th>
+              <td>C# 開発</td>
             </tr>
             <tr>
-              <th>変更方針</th>
-              <td>標準規約を基準にし、差分を追記する</td>
+              <th>補助対象</th>
+              <td>Unity / Visual Studio / 設計方針</td>
+            </tr>
+            <tr>
+              <th>管理方針</th>
+              <td>分野別セクションに分けて追記</td>
             </tr>
           </tbody>
         </table>
