@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CSharp Development Guidelines - Microsoft 標準ベース</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f8f9fa;
+      --paper: #ffffff;
+      --text: #202122;
+      --muted: #54595d;
+      --border: #a2a9b1;
+      --border-soft: #c8ccd1;
+      --link: #0645ad;
+      --link-visited: #0b0080;
+      --accent: #3366cc;
+      --code-bg: #f6f7f8;
+      --table-head: #eaecf0;
+      --callout: #f8fbff;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.7 system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    a { color: var(--link); text-decoration: none; }
+    a:visited { color: var(--link-visited); }
+    a:hover { text-decoration: underline; }
+
+    .page {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .header {
+      background: var(--paper);
+      border: 1px solid var(--border-soft);
+      padding: 20px 24px;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      margin: 0 0 8px;
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr) 290px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .sidebar,
+    .content,
+    .infobox {
+      background: var(--paper);
+      border: 1px solid var(--border-soft);
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 16px;
+      padding: 16px;
+    }
+
+    .sidebar h2,
+    .infobox h2,
+    .content h2 {
+      margin: 0 0 12px;
+      font-size: 1.15rem;
+      line-height: 1.3;
+    }
+
+    .toc {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.96rem;
+    }
+
+    .toc li { margin: 0; }
+    .toc a {
+      display: block;
+      padding: 6px 0;
+      color: var(--link);
+      border-bottom: 1px solid transparent;
+    }
+
+    .infobox {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .infobox table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .infobox caption {
+      padding: 14px 16px;
+      font-weight: 700;
+      text-align: left;
+      background: var(--table-head);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .infobox th,
+    .infobox td {
+      padding: 10px 12px;
+      vertical-align: top;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .infobox th {
+      width: 34%;
+      background: #f8f9fa;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .content {
+      padding: 0 24px 24px;
+      min-width: 0;
+    }
+
+    .article-intro {
+      border-left: 4px solid var(--accent);
+      background: var(--callout);
+      padding: 14px 16px;
+      margin: 0 0 20px;
+    }
+
+    .content section {
+      padding-top: 6px;
+      margin-top: 24px;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .content h3 {
+      margin: 18px 0 10px;
+      font-size: 1.08rem;
+    }
+
+    .content p,
+    .content li {
+      margin: 0 0 10px;
+    }
+
+    .content ul,
+    .content ol {
+      margin: 0 0 14px 22px;
+      padding: 0;
+    }
+
+    .content code,
+    .content pre {
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+      font-size: 0.95em;
+    }
+
+    .content code {
+      background: var(--code-bg);
+      padding: 0.1em 0.35em;
+      border: 1px solid #eaecf0;
+      border-radius: 3px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid #eaecf0;
+      padding: 14px 16px;
+      overflow: auto;
+      margin: 0 0 14px;
+    }
+
+    .note {
+      background: #fff8e5;
+      border: 1px solid #f1d189;
+      padding: 12px 14px;
+      margin: 0 0 14px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 14px;
+      font-size: 0.95rem;
+    }
+
+    .table th,
+    .table td {
+      border: 1px solid var(--border-soft);
+      padding: 9px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .table th {
+      background: var(--table-head);
+    }
+
+    .sources {
+      font-size: 0.95rem;
+    }
+
+    .sources ol {
+      margin-left: 20px;
+    }
+
+    .footer {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 18px;
+      padding: 12px 0 0;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    @media (max-width: 1100px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page { padding: 12px; }
+      .header,
+      .content,
+      .sidebar,
+      .infobox { border-left: 1px solid var(--border-soft); border-right: 1px solid var(--border-soft); }
+      .content { padding: 0 16px 18px; }
+      .two-col { grid-template-columns: 1fr; }
+      .title { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1 class="title">CSharp Development Guidelines</h1>
+      <p class="subtitle">Microsoft が提示している C# /.NET 標準のコーディング規約をベースにした、規約書用の HTML 版。</p>
+      <div class="meta">
+        <div>文書種別: 標準規約</div>
+        <div>対象: C# / .NET 実装</div>
+        <div>状態: ベースライン</div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar" aria-label="目次">
+        <h2>目次</h2>
+        <ul class="toc">
+          <li><a href="#overview">概要</a></li>
+          <li><a href="#scope">適用範囲</a></li>
+          <li><a href="#goals">方針</a></li>
+          <li><a href="#tools">ツールと分析</a></li>
+          <li><a href="#naming">命名規約</a></li>
+          <li><a href="#language">言語ガイドライン</a></li>
+          <li><a href="#strings">文字列</a></li>
+          <li><a href="#construction">初期化</a></li>
+          <li><a href="#collections">配列とコレクション</a></li>
+          <li><a href="#delegates">デリゲート</a></li>
+          <li><a href="#exceptions">例外処理</a></li>
+          <li><a href="#operators">演算子</a></li>
+          <li><a href="#event">イベント</a></li>
+          <li><a href="#static">static メンバー</a></li>
+          <li><a href="#linq">LINQ</a></li>
+          <li><a href="#review">レビュー観点</a></li>
+          <li><a href="#sources">出典</a></li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <p class="article-intro" id="overview">
+          この文書は、Microsoft Learn の C# コーディング規約をベースに、プロジェクト共通の標準規約として読めるように整理したものです。
+          ここではまだ独自ルールを足さず、標準側の方針をそのまま土台として残します。
+        </p>
+
+        <section id="scope">
+          <h2>適用範囲</h2>
+          <p>新規実装、改修、レビュー、保守、サンプルコード、共通部品の記述に適用します。</p>
+          <p>個別案件で追加の制約が必要な場合は、この文書を基準に差分として追記します。</p>
+        </section>
+
+        <section id="goals">
+          <h2>方針</h2>
+          <div class="two-col">
+            <div>
+              <ul>
+                <li>可読性、整合性、保守性を優先する。</li>
+                <li>既存コードと整合する書き方を基本にする。</li>
+                <li>コードは学習資料としても使える水準を目指す。</li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li>複雑さを増やす記法は避ける。</li>
+                <li>意図が分かる名前と構造を重視する。</li>
+                <li>最新の C# 機能は、明快さを損なわない範囲で採用する。</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="tools">
+          <h2>ツールと分析</h2>
+          <p>Microsoft は、<a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions" target="_blank" rel="noopener">Common C# code conventions</a>
+             の中で、code analysis と <code>.editorconfig</code> を用いて規約を強制することを案内しています。</p>
+          <p>この文書でも、最終的には IDE と CI で自動検査できる規約を前提にします。</p>
+        </section>
+
+        <section id="naming">
+          <h2>命名規約</h2>
+          <p>Microsoft Learn の <a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names" target="_blank" rel="noopener">C# identifier naming rules and conventions</a> に沿って、基本は次の方針を採ります。</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>要素</th>
+                <th>規約</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>型、名前空間、公開メンバー</td><td>PascalCase</td></tr>
+              <tr><td>private / internal フィールド</td><td>camelCase かつ必要に応じて接頭辞を付ける</td></tr>
+              <tr><td>ローカル変数、メソッド引数</td><td>camelCase</td></tr>
+              <tr><td>インターフェース</td><td><code>I</code> で始める</td></tr>
+              <tr><td>属性型</td><td><code>Attribute</code> で終える</td></tr>
+              <tr><td>定数</td><td>PascalCase</td></tr>
+              <tr><td>型パラメータ</td><td>意味が伝わる名前を使う。単独なら <code>T</code> も可</td></tr>
+            </tbody>
+          </table>
+          <p>略語は、広く通用するもの以外は避けます。</p>
+        </section>
+
+        <section id="language">
+          <h2>言語ガイドライン</h2>
+          <ul>
+            <li>利用可能なら、現代的な C# 機能を使う。</li>
+            <li>古い構文は、互換性や明確な理由がある場合のみ使う。</li>
+            <li>汎用的な例外捕捉は避け、扱える例外だけを捕捉する。</li>
+            <li>I/O バウンド処理には <code>async</code> / <code>await</code> を使う。</li>
+            <li>文字列、数値、型名は、可読性が高い標準表現を使う。</li>
+            <li><code>var</code> は型が明確に推測できる場合に限る。</li>
+          </ul>
+        </section>
+
+        <section id="strings">
+          <h2>文字列</h2>
+          <ul>
+            <li>短い文字列連結には文字列補間を使う。</li>
+            <li>ループ内で大量の文字列を連結する場合は <code>StringBuilder</code> を使う。</li>
+            <li>必要なら raw string literals を使う。</li>
+            <li>位置指定の補間より、式ベースの補間を優先する。</li>
+          </ul>
+          <pre><code>string displayName = $"{lastName}, {firstName}";
+var builder = new StringBuilder();
+builder.Append(phrase);</code></pre>
+        </section>
+
+        <section id="construction">
+          <h2>初期化</h2>
+          <ul>
+            <li>record の primary constructor は、公開プロパティとして扱われる前提で命名する。</li>
+            <li>class / struct の primary constructor parameter は camelCase を使う。</li>
+            <li>必須初期化が必要なら <code>required</code> を検討する。</li>
+            <li>オブジェクト初期化子を使って、代入の散在を避ける。</li>
+          </ul>
+        </section>
+
+        <section id="collections">
+          <h2>配列とコレクション</h2>
+          <ul>
+            <li>コレクション初期化には collection expressions を使う。</li>
+            <li>戻り値としては、用途に応じて <code>IEnumerable&lt;T&gt;</code>、<code>IReadOnlyList&lt;T&gt;</code>、<code>List&lt;T&gt;</code> を使い分ける。</li>
+            <li>LINQ は読みやすさを損なわない範囲で使う。</li>
+          </ul>
+        </section>
+
+        <section id="delegates">
+          <h2>デリゲート</h2>
+          <ul>
+            <li>可能なら <code>Func&lt;&gt;</code> と <code>Action&lt;&gt;</code> を使う。</li>
+            <li>独自 delegate 型を作るのは、意味を持つ公開契約が必要な場合に限る。</li>
+            <li>デリゲート呼び出しは、シグネチャが分かる形で書く。</li>
+          </ul>
+        </section>
+
+        <section id="exceptions">
+          <h2>例外処理</h2>
+          <ul>
+            <li>処理できない例外は捕捉しない。</li>
+            <li>再送出は <code>throw;</code> を使う。</li>
+            <li><code>try-catch</code> より、<code>using</code> や設計で解決できるならそちらを優先する。</li>
+            <li>例外メッセージには、調査に必要な文脈を含める。</li>
+          </ul>
+        </section>
+
+        <section id="operators">
+          <h2>演算子</h2>
+          <ul>
+            <li>比較では <code>&&</code> と <code>||</code> を使う。</li>
+            <li><code>new</code> は省略可能な場合、簡潔な記法を使う。</li>
+            <li>オブジェクト初期化子で見通しをよくする。</li>
+          </ul>
+        </section>
+
+        <section id="event">
+          <h2>イベント</h2>
+          <p>解除不要なイベントハンドラには lambda を使い、後で外す必要があるものは明示的なメソッドを使います。</p>
+        </section>
+
+        <section id="static">
+          <h2>static メンバー</h2>
+          <p><code>static</code> メンバーはクラス名で参照し、基底型の static を派生型名で飾る書き方は避けます。</p>
+        </section>
+
+        <section id="linq">
+          <h2>LINQ</h2>
+          <ul>
+            <li>クエリ変数名は意味が分かる名前にする。</li>
+            <li>匿名型のプロパティ名は PascalCase を保つ。</li>
+            <li>複雑なクエリは分解し、読みやすさを優先する。</li>
+            <li>絞り込みは後続の句より先に行う。</li>
+          </ul>
+        </section>
+
+        <section id="review">
+          <h2>レビュー観点</h2>
+          <ul>
+            <li>命名が意味を表しているか。</li>
+            <li>責務が分かれすぎたり、逆に肥大化したりしていないか。</li>
+            <li>例外、null、安全性、非同期の扱いに無理がないか。</li>
+            <li>変更の影響範囲に対してテストが足りているか。</li>
+            <li>標準規約からの逸脱がある場合、その理由が明示されているか。</li>
+          </ul>
+        </section>
+
+        <section id="sources" class="sources">
+          <h2>出典</h2>
+          <ol>
+            <li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions" target="_blank" rel="noopener">Common C# code conventions</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names" target="_blank" rel="noopener">C# identifier naming rules and conventions</a></li>
+          </ol>
+          <div class="note">
+            この HTML は標準版の土台です。次の段階では、ここに独自ルールを追記し、差分が分かる形で更新していきます。
+          </div>
+        </section>
+
+        <div class="footer">
+          最終更新: 2026-06-17 / 参照用 HTML 規約書
+        </div>
+      </main>
+
+      <aside class="infobox" aria-label="概要">
+        <table>
+          <caption>文書情報</caption>
+          <tbody>
+            <tr>
+              <th>文書名</th>
+              <td>CSharp Development Guidelines</td>
+            </tr>
+            <tr>
+              <th>ベース</th>
+              <td>Microsoft Learn の C# コーディング規約</td>
+            </tr>
+            <tr>
+              <th>用途</th>
+              <td>システム開発プロジェクトの共通規約書</td>
+            </tr>
+            <tr>
+              <th>構成</th>
+              <td>Wikipedia 風の本文 + 目次 + 概要欄</td>
+            </tr>
+            <tr>
+              <th>変更方針</th>
+              <td>標準規約を基準にし、差分を追記する</td>
+            </tr>
+          </tbody>
+        </table>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
