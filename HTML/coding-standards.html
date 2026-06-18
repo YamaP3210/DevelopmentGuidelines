@@ -12,13 +12,12 @@
       <p class="eyebrow">DevelopmentGuidelines</p>
       <h1 class="title">コーディング規約 / C#</h1>
       <p class="lead">
-        このページは、Microsoft Learn の .NET / C# 公式規約をベースとして再構成した参照ページです。
-        プロジェクト固有の上書き規約は分離し、このページは標準規約の土台として扱います。
+        .NET / C# の標準的なコーディング規約を、実務で参照しやすい単位で整理したページです。
       </p>
       <div class="meta" aria-label="文書メタ情報">
         <span class="chip">基準: Microsoft Learn</span>
         <span class="chip">対象: C# / .NET</span>
-        <span class="chip">用途: ベース規約</span>
+        <span class="chip">用途: 標準規約</span>
       </div>
     </header>
 
@@ -34,7 +33,7 @@
           <li><a href="#language-rules">言語・不要コード規約</a></li>
           <li><a href="#formatting">書式規約</a></li>
           <li><a href="#enforcement">適用方法</a></li>
-          <li><a href="#overrides">独自上書き</a></li>
+          <li><a href="coding-standards-overrides.html">独自規約</a></li>
           <li><a href="#sources">出典</a></li>
         </ul>
       </aside>
@@ -43,17 +42,16 @@
         <section class="section" id="overview">
           <h2>概要</h2>
           <p class="callout">
-            ここでは、.NET 標準として公開されている C# の規約と code-style ルールを、実務で参照しやすい単位へ整理しています。
+            ここでは、Microsoft Learn で公開されている .NET / C# の標準規約を、命名、言語スタイル、書式、適用方法に分けて整理しています。
           </p>
           <p>
-            既存ページに混在していたプロジェクト固有ルールは別ページへ退避しました。
-            このページでは、公式ソースで確認できる内容のみをベース規約として扱います。
+            C# のコードを書くときに、何を基準に名前を付け、どのような書式や style rule を採用するかを確認するための参照ページとして使えます。
           </p>
         </section>
 
         <section class="section" id="scope">
           <h2>取得範囲</h2>
-          <p>ベース化の対象にした公式ソースは次の 8 文書です。</p>
+          <p>このページでは、次の Microsoft Learn 文書を基準として扱います。</p>
           <ul>
             <li><code>Common C# code conventions</code></li>
             <li><code>C# identifier naming rules and conventions</code></li>
@@ -64,11 +62,6 @@
             <li><code>Code-style naming rules</code></li>
             <li><code>Code-style rule options</code></li>
           </ul>
-          <p>
-            取得元と反映先の対応は
-            <code>DotNetCodingStandardsInventory.md</code>
-            に残しています。
-          </p>
         </section>
 
         <section class="section" id="guidelines">
@@ -120,6 +113,7 @@
             <li>識別子は文字または <code>_</code> で開始します。</li>
             <li>識別子には Unicode 文字、数字、接続文字、結合文字、書式文字を含められます。</li>
             <li>キーワードを識別子として使う必要がある場合は <code>@if</code> のように verbatim identifier を使います。</li>
+            <li>連続する <code>__</code> は使いません。</li>
           </ul>
 
           <h3>既定の命名慣例</h3>
@@ -173,6 +167,17 @@
               </tr>
             </tbody>
           </table>
+
+          <h3>標準的な命名の考え方</h3>
+          <ul>
+            <li>名前は短さより明確さを優先し、意味が伝わるものにします。</li>
+            <li>略語や頭字語は、広く定着したものに限って使います。</li>
+            <li>属性型は <code>Attribute</code> で終える命名にします。</li>
+            <li>enum は通常は単数形、flags enum は複数形を使います。</li>
+            <li>名前空間は用途が分かる名前にし、reverse domain name notation に沿って構成します。</li>
+            <li>アセンブリ名は、そのアセンブリの主目的が分かる名前にします。</li>
+            <li>単文字名は、単純なループカウンターなどの限定的な場面を除いて避けます。</li>
+          </ul>
 
           <h3>editorconfig で表現する命名ルール</h3>
           <p>
@@ -413,18 +418,6 @@
           </ul>
         </section>
 
-        <section class="section" id="overrides">
-          <h2>独自上書き</h2>
-          <p class="callout">
-            以前このページに含まれていた、ケース識別子ベース命名や 5 行 / 3 行 / 1 行の空行規約などは、.NET 標準ではなくプロジェクト独自ルールです。
-          </p>
-          <p>
-            それらは
-            <a href="coding-standards-overrides.html">C# 独自上書き規約</a>
-            へ退避しました。標準ベースを確認したあとに、必要なものだけ追加適用してください。
-          </p>
-        </section>
-
         <section class="section" id="sources">
           <h2>出典</h2>
           <ul>
@@ -454,15 +447,15 @@
             </tr>
             <tr>
               <th>用途</th>
-              <td>ベース規約</td>
+              <td>標準規約</td>
             </tr>
             <tr>
               <th>独自規約</th>
-              <td><a href="coding-standards-overrides.html">別ページに退避</a></td>
+              <td><a href="coding-standards-overrides.html">別ページ</a></td>
             </tr>
             <tr>
-              <th>照合一覧</th>
-              <td><code>DotNetCodingStandardsInventory.md</code></td>
+              <th>出典</th>
+              <td>Microsoft Learn 公式文書</td>
             </tr>
           </tbody>
         </table>
