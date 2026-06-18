@@ -6,19 +6,19 @@
   <title>コーディング規約 / C#</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="detail-page">
   <div class="page">
     <header class="hero">
       <p class="eyebrow">DevelopmentGuidelines</p>
       <h1 class="title">コーディング規約 / C#</h1>
       <p class="lead">
-        .NET の公開ガイドラインを土台にした C# の規約ページです。
-        命名、表記、初期化、書式、コレクション、ツール、非同期、文字列、例外、論理演算子、delegate、イベントの規約です。
+        このページは、Microsoft Learn の .NET / C# 公式規約をベースとして再構成した参照ページです。
+        プロジェクト固有の上書き規約は分離し、このページは標準規約の土台として扱います。
       </p>
       <div class="meta" aria-label="文書メタ情報">
         <span class="chip">基準: Microsoft Learn</span>
-        <span class="chip">対象: C#</span>
-        <span class="chip">方針: 標準 + 必要な上書き</span>
+        <span class="chip">対象: C# / .NET</span>
+        <span class="chip">用途: ベース規約</span>
       </div>
     </header>
 
@@ -28,17 +28,14 @@
         <ul class="toc">
           <li><a href="index.html">トップ</a></li>
           <li><a href="#overview">概要</a></li>
+          <li><a href="#scope">取得範囲</a></li>
+          <li><a href="#guidelines">共通ガイドライン</a></li>
           <li><a href="#naming">命名</a></li>
-          <li><a href="#representation">表記と初期化</a></li>
-          <li><a href="#formatting">書式</a></li>
-          <li><a href="#collections">コレクション</a></li>
-          <li><a href="#tools">ツール</a></li>
-          <li><a href="#async">非同期</a></li>
-          <li><a href="#strings">文字列</a></li>
-          <li><a href="#exceptions">例外処理</a></li>
-          <li><a href="#operators">論理演算子</a></li>
-          <li><a href="#delegates">delegate と func/action</a></li>
-          <li><a href="#events">イベント</a></li>
+          <li><a href="#language-rules">言語・不要コード規約</a></li>
+          <li><a href="#formatting">書式規約</a></li>
+          <li><a href="#enforcement">適用方法</a></li>
+          <li><a href="#overrides">独自上書き</a></li>
+          <li><a href="#sources">出典</a></li>
         </ul>
       </aside>
 
@@ -46,190 +43,400 @@
         <section class="section" id="overview">
           <h2>概要</h2>
           <p class="callout">
-            このページは、C# のコーディング規約を示します。
+            ここでは、.NET 標準として公開されている C# の規約と code-style ルールを、実務で参照しやすい単位へ整理しています。
           </p>
           <p>
-            命名、表記、初期化、書式、コレクション、ツール、非同期、文字列、例外、論理演算子、delegate、イベントを扱います。
+            既存ページに混在していたプロジェクト固有ルールは別ページへ退避しました。
+            このページでは、公式ソースで確認できる内容のみをベース規約として扱います。
           </p>
+        </section>
+
+        <section class="section" id="scope">
+          <h2>取得範囲</h2>
+          <p>ベース化の対象にした公式ソースは次の 8 文書です。</p>
+          <ul>
+            <li><code>Common C# code conventions</code></li>
+            <li><code>C# identifier naming rules and conventions</code></li>
+            <li><code>Code-style rules overview</code></li>
+            <li><code>Code-style language and unnecessary code rules</code></li>
+            <li><code>C# formatting options</code></li>
+            <li><code>.NET formatting options</code></li>
+            <li><code>Code-style naming rules</code></li>
+            <li><code>Code-style rule options</code></li>
+          </ul>
+          <p>
+            取得元と反映先の対応は
+            <code>DotNetCodingStandardsInventory.md</code>
+            に残しています。
+          </p>
+        </section>
+
+        <section class="section" id="guidelines">
+          <h2>共通ガイドライン</h2>
+          <p class="callout">
+            公式の文章ベース規約は、命名や formatter 設定だけでなく、サンプルや通常コードでどう書くかの判断基準も含みます。
+          </p>
+
+          <h3>言語機能の使い方</h3>
+          <ul>
+            <li>可能な限り新しい C# 言語機能と現行の書き方を使います。</li>
+            <li>古い構文や回りくどい書き方は避けます。</li>
+            <li>読みやすさと単純さを優先し、不要に複雑なコードを避けます。</li>
+            <li>I/O バウンド処理では <code>async</code> / <code>await</code> を使います。</li>
+            <li>コレクション処理では LINQ を読みやすさの範囲で活用します。</li>
+            <li>型名は <code>string</code> や <code>int</code> などの C# キーワードを優先します。</li>
+            <li><code>var</code> は式から型が明確に読み取れる場合に使います。</li>
+            <li>符号なし型より <code>int</code> を優先します。</li>
+          </ul>
+
+          <h3>文字列・初期化・コレクション</h3>
+          <ul>
+            <li>短い文字列連結は文字列補間を使います。</li>
+            <li>ループ内で大量の文字列を連結するときは <code>StringBuilder</code> を使います。</li>
+            <li>エスケープや verbatim 文字列より raw string literal を優先します。</li>
+            <li>オブジェクト生成では簡潔な <code>new()</code> やオブジェクト初期化子を使います。</li>
+            <li>コレクション初期化では collection expressions を使います。</li>
+            <li>必須初期化が必要な値には <code>required</code> を検討します。</li>
+          </ul>
+
+          <h3>例外・制御・イベント</h3>
+          <ul>
+            <li>捕捉するのは適切に処理できる例外だけにします。</li>
+            <li><code>using</code> で表現できる解放処理に、解放目的だけの <code>try-finally</code> は使いません。</li>
+            <li>比較では <code>&amp;&amp;</code> と <code>||</code> を優先します。</li>
+            <li>単純な delegate は <code>Func&lt;&gt;</code> と <code>Action&lt;&gt;</code> を優先します。</li>
+            <li>後で解除しないイベント ハンドラーは lambda で書けます。</li>
+          </ul>
         </section>
 
         <section class="section" id="naming">
           <h2>命名</h2>
-          <p class="callout">命名は、具体的な書式ルールと、判断の考え方を分けて扱います。</p>
+          <p class="callout">
+            命名は、識別子として合法かどうかの規則と、.NET が既定で推奨する慣例の 2 層で扱います。
+          </p>
 
-          <h3>規則</h3>
-          <div class="grid">
-            <div class="card">
-              <h4>名前空間</h4>
-              <p>ルート名前空間はケース識別子から始めます。ケース内フォルダ構造と完全一致させる必要はなく、基本はフォルダに沿って考えつつ、カテゴライズ、利便性、可読性を優先して組みます。</p>
-              <p>たとえば、ケース識別子が <code>XXX</code> なら、<code>XXX.Client.UI</code>、<code>XXX.Client.Tools</code>、<code>XXX.Server.Core</code> のように、役割や配置で分ける形が考えられます。</p>
-              <p>よほどの理由がない限り、ケース間で名前空間を共有しません。<code>XXX</code> を共有するということは <code>XXX</code> 内で完結させる考え方であり、別のケースから関与するなら <code>YYY</code> のように別の名前空間で扱います。</p>
-            </div>
-            <div class="card">
-              <h4>クラス名</h4>
-              <p>クラス名はケース識別子の直後に PascalCase を続けます。<code>_</code> のような連結記号は使いません。たとえば、ケース識別子が <code>XXX</code> で、略語を含む接続名なら <code>XXXTCPConnection</code> のように続けます。</p>
-            </div>
-            <div class="card">
-              <h4>型名</h4>
-              <p><code>class</code>、<code>struct</code>、<code>enum</code> の型名は、クラス名と同じくケース識別子の直後に PascalCase を続けます。</p>
-            </div>
-            <div class="card">
-              <h4>インターフェース</h4>
-              <p>インターフェース名は <code>I</code> + ケース識別子 + PascalCase で続けます。属性型は <code>Attribute</code> で終えます。</p>
-            </div>
-            <div class="card">
-              <h4>プロパティ</h4>
-              <p>プロパティは PascalCase で書きます。プロパティは状態・設定・パラメータを表すために用い、処理をさせるためのものとして扱いません。private プロパティは、それがプロパティである理由が明確な場合に使い、必要性が薄いならフィールドの使用を検討します。詳細はフィールド・プロパティの使い分けで扱います。</p>
-            </div>
-            <div class="card">
-              <h4>フィールド</h4>
-              <p>フィールドは <code>_</code> + camelCase で書きます。公開フィールドは原則として使わず、必要がある場合でも慎重に扱います。</p>
-            </div>
-            <div class="card">
-              <h4>メソッド・イベント・定数</h4>
-              <p>メソッドは動詞で、イベントと定数は PascalCase を使います。ローカル変数、引数、private フィールドは camelCase を使います。</p>
-            </div>
-            <div class="card">
-              <h4>識別子の基本</h4>
-              <p>識別子は先頭に文字または <code>_</code> を使い、必要なら <code>@if</code> のように verbatim identifier を使えます。</p>
-            </div>
-          </div>
+          <h3>識別子の基本規則</h3>
+          <ul>
+            <li>識別子は文字または <code>_</code> で開始します。</li>
+            <li>識別子には Unicode 文字、数字、接続文字、結合文字、書式文字を含められます。</li>
+            <li>キーワードを識別子として使う必要がある場合は <code>@if</code> のように verbatim identifier を使います。</li>
+          </ul>
 
-          <h3>備考</h3>
-          <div class="grid">
-            <div class="card">
-              <h4>ケース識別子</h4>
-              <p>ケースには識別子があり、そこから生み出されたものの接頭辞として使うことを原則にします。ファイル名、クラス名、名前空間、設定名などの先頭に付けますが、ファイル名固定のライブラリやリネームできない資産のような技術的制約がある場合は例外を認めます。</p>
-            </div>
-            <div class="card">
-              <h4>略語</h4>
-              <p>略語・頭文字語は大文字のまま扱い、他の語と連結するときも <code>Xxx</code> のように通常の PascalCase に丸めません。たとえば、<code>ID</code> は <code>Id</code> にせず <code>ID</code> のまま、<code>TCP</code> は <code>TCP</code> のまま、<code>UI</code> は <code>UI</code> のまま扱い、名前空間なら <code>XXX.ID</code>、<code>XXX.TCP</code>、<code>XXX.UI</code> のように続けます。略語の意味を保ったまま続けます。ただし、言語規約や外部仕様、技術的制約に抵触する場合は例外を認めます。</p>
-            </div>
-            <div class="card">
-              <h4>命名の優先度</h4>
-              <p>まず意味が伝わることを優先し、そのうえで既存の .NET 慣例と整合させます。プロジェクト固有の命名が必要な場合は、例外として扱います。</p>
-            </div>
-          </div>
+          <h3>既定の命名慣例</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>対象</th>
+                <th>標準的な慣例</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>class / struct / enum / delegate / namespace</td>
+                <td><code>PascalCase</code></td>
+              </tr>
+              <tr>
+                <td>interface</td>
+                <td><code>I</code> 接頭辞 + <code>PascalCase</code></td>
+              </tr>
+              <tr>
+                <td>public / protected 系メンバー</td>
+                <td><code>PascalCase</code></td>
+              </tr>
+              <tr>
+                <td>private / internal field</td>
+                <td><code>_camelCase</code></td>
+              </tr>
+              <tr>
+                <td>private / internal static field</td>
+                <td><code>s_</code> 接頭辞 + <code>camelCase</code></td>
+              </tr>
+              <tr>
+                <td>thread static field</td>
+                <td><code>t_</code> 接頭辞 + <code>camelCase</code></td>
+              </tr>
+              <tr>
+                <td>method parameter / local variable</td>
+                <td><code>camelCase</code></td>
+              </tr>
+              <tr>
+                <td>const</td>
+                <td><code>PascalCase</code></td>
+              </tr>
+              <tr>
+                <td>record の primary constructor parameter</td>
+                <td><code>PascalCase</code></td>
+              </tr>
+              <tr>
+                <td>class / struct の primary constructor parameter</td>
+                <td><code>camelCase</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>editorconfig で表現する命名ルール</h3>
+          <p>
+            公式の naming rules は、<code>symbol group</code>、<code>naming style</code>、<code>naming rule</code>
+            の 3 要素で組み立てます。既定ルールの違反は <code>IDE1006</code> として扱われます。
+          </p>
+          <ul>
+            <li>命名スタイルでは <code>capitalization</code>、<code>required_prefix</code>、<code>required_suffix</code>、<code>word_separator</code> を定義できます。</li>
+            <li>symbol group では <code>applicable_kinds</code>、<code>applicable_accessibilities</code>、<code>required_modifiers</code> を定義できます。</li>
+            <li>build 時に厳格に扱う場合は、命名ルール側だけでなく <code>dotnet_diagnostic.IDE1006.severity</code> も設定します。</li>
+          </ul>
         </section>
 
-        <section class="section" id="representation">
-          <h2>表記と初期化</h2>
-          <div class="grid">
-            <div class="card">
-              <h4>型表記</h4>
-              <p>型は <code>string</code> や <code>int</code> などの C# キーワードを優先し、<code>var</code> は型が明確な場合に使います。</p>
-            </div>
-            <div class="card">
-              <h4>初期化</h4>
-              <p>文字列補間、raw string literal、<code>new()</code>、オブジェクト初期化子、<code>required</code> を適切に使います。</p>
-            </div>
-          </div>
+        <section class="section" id="language-rules">
+          <h2>言語・不要コード規約</h2>
+          <p class="callout">
+            ここでは、公式の <code>Code-style rules overview</code> と <code>Language rules</code> にある規約項目を、カテゴリ単位で一覧化しています。
+          </p>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>カテゴリ</th>
+                <th>規約項目</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>using directive</td>
+                <td><code>IDE0073</code> Require file header, <code>IDE0005</code> Remove unnecessary using directives, <code>IDE0065</code> using directive placement</td>
+              </tr>
+              <tr>
+                <td>Code-block</td>
+                <td><code>IDE0011</code> Add braces, <code>IDE0063</code> Use simple using statement, <code>IDE0160</code>/<code>IDE0161</code> Namespace declaration preferences, <code>IDE0200</code> Remove unnecessary lambda expression, <code>IDE0210</code> Convert to top-level statements, <code>IDE0211</code> Convert to Program.Main style, <code>IDE0290</code> Use primary constructor, <code>IDE0330</code> Prefer System.Threading.Lock</td>
+              </tr>
+              <tr>
+                <td>Expression-bodied members</td>
+                <td><code>IDE0021</code> Constructor, <code>IDE0022</code> Method, <code>IDE0023</code>/<code>IDE0024</code> Operator, <code>IDE0025</code> Property, <code>IDE0026</code> Indexer, <code>IDE0027</code> Accessor, <code>IDE0053</code> Lambda, <code>IDE0061</code> Local function</td>
+              </tr>
+              <tr>
+                <td>Expression-level</td>
+                <td><code>IDE0031</code> Null propagation, <code>IDE0032</code> Auto property, <code>IDE0034</code> default literal, <code>IDE0039</code> Local function over anonymous function, <code>IDE0041</code> is null check, <code>IDE0042</code> Deconstructed declaration, <code>IDE0045</code>/<code>IDE0046</code> Conditional expression, <code>IDE0047</code>/<code>IDE0048</code> Parentheses preferences, <code>IDE0054</code>/<code>IDE0074</code> Compound/coalesce assignment, <code>IDE0057</code>/<code>IDE0058</code>/<code>IDE0059</code> Range and unused value, <code>IDE0066</code> Switch expression, <code>IDE0071</code> Simplified interpolation, <code>IDE0072</code> Missing cases, <code>IDE0075</code> Simplify conditional, <code>IDE0080</code> Remove unnecessary suppression operator, <code>IDE0082</code> typeof over typeof(...).Name, <code>IDE0090</code> Simplify new expression, <code>IDE0100</code> Remove redundant equality, <code>IDE0110</code> Remove unnecessary discard, <code>IDE0120</code> Collection initializer module, <code>IDE0140</code> Simplify object creation, <code>IDE0160</code>/<code>IDE0161</code> Namespace declaration, <code>IDE0170</code> Simplify property pattern, <code>IDE0180</code> Tuple swap, <code>IDE0220</code> Explicit cast in foreach, <code>IDE0221</code> Explicit cast, <code>IDE0230</code> UTF-8 string literal, <code>IDE0240</code>/<code>IDE0241</code> Nullable directive, <code>IDE0260</code> Use pattern matching, <code>IDE0270</code> Null check can be simplified, <code>IDE0280</code> nameof, <code>IDE0300</code> to <code>IDE0306</code> collection expression variants, <code>IDE0340</code> Unbound generic type, <code>IDE0350</code> Implicitly typed lambda, <code>IDE0360</code> Simplify property accessor</td>
+              </tr>
+              <tr>
+                <td>Field</td>
+                <td><code>IDE0044</code> Add readonly modifier</td>
+              </tr>
+              <tr>
+                <td>Keyword vs framework type</td>
+                <td><code>IDE0049</code> Prefer C# keyword type names</td>
+              </tr>
+              <tr>
+                <td>Modifier</td>
+                <td><code>IDE0036</code> Order modifiers, <code>IDE0040</code> Add accessibility modifiers, <code>IDE0062</code> Make local function static, <code>IDE0064</code> Make struct fields writable, <code>IDE0250</code> readonly struct, <code>IDE0251</code> readonly member, <code>IDE0320</code> static anonymous function, <code>IDE0380</code> Remove unnecessary unsafe</td>
+              </tr>
+              <tr>
+                <td>New-line</td>
+                <td><code>IDE2000</code> Avoid multiple blank lines, <code>IDE2003</code> Blank line required between block and subsequent statement</td>
+              </tr>
+              <tr>
+                <td>Null-checking</td>
+                <td><code>IDE1005</code> Use conditional delegate call</td>
+              </tr>
+              <tr>
+                <td>Parameter</td>
+                <td><code>IDE0060</code> Remove unused parameter, <code>IDE0280</code> Use nameof</td>
+              </tr>
+              <tr>
+                <td>Parentheses</td>
+                <td><code>IDE0047</code>, <code>IDE0048</code> Parentheses preferences</td>
+              </tr>
+              <tr>
+                <td>Pattern matching</td>
+                <td><code>IDE0019</code> as + null check, <code>IDE0020</code>/<code>IDE0038</code> is check + cast, <code>IDE0066</code> switch expression, <code>IDE0078</code>/<code>IDE0260</code> pattern matching, <code>IDE0083</code> not operator, <code>IDE0170</code> property pattern</td>
+              </tr>
+              <tr>
+                <td>Suppression</td>
+                <td><code>IDE0079</code> Remove unnecessary suppression, <code>IDE0370</code> Remove unnecessary null-forgiving operator</td>
+              </tr>
+              <tr>
+                <td>this. qualification</td>
+                <td><code>IDE0003</code>, <code>IDE0009</code> Member-access qualification preferences</td>
+              </tr>
+              <tr>
+                <td>var</td>
+                <td><code>IDE0007</code>, <code>IDE0008</code> var preferences</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>このページで特に参照頻度が高い規約</h3>
+          <ul>
+            <li><code>IDE0011</code> 波括弧を省略しない方針</li>
+            <li><code>IDE0049</code> <code>string</code> / <code>int</code> などのキーワード型優先</li>
+            <li><code>IDE0063</code> simple using statement</li>
+            <li><code>IDE0065</code> using の配置</li>
+            <li><code>IDE0007</code> / <code>IDE0008</code> var 方針</li>
+            <li><code>IDE0036</code> modifier の順序</li>
+            <li><code>IDE0044</code> readonly の付与</li>
+            <li><code>IDE0066</code> switch expression の使用</li>
+            <li><code>IDE0090</code> 簡潔な <code>new</code> 構文</li>
+            <li><code>IDE0300</code> - <code>IDE0306</code> collection expression</li>
+          </ul>
         </section>
 
         <section class="section" id="formatting">
-          <h2>書式</h2>
-          <p class="callout">書式は、まずサンプルで示し、その後に補足を読む形を基準にします。</p>
-          <p>using の並び、空行、namespace の位置、波括弧の置き方は、読みやすさを優先して次の形を基準にします。</p>
-          <pre><code class="language-csharp">using System;
-using System.Collections.Generic;
-using System.IO;
+          <h2>書式規約</h2>
+          <p class="callout">
+            書式は公式の formatter option をベースに扱います。波括弧位置や <code>switch</code> の字下げもこのセクションの対象です。
+          </p>
 
-using UnityEngine;
-using UnityEngine.UI;
+          <h3>.NET 共通 formatting options</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>option</th>
+                <th>既定値</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>dotnet_sort_system_directives_first</code></td>
+                <td><code>true</code></td>
+              </tr>
+              <tr>
+                <td><code>dotnet_separate_import_directive_groups</code></td>
+                <td><code>false</code></td>
+              </tr>
+            </tbody>
+          </table>
 
-using ThirdPartyLib.Network;
+          <h3>C# new-line options</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>option</th>
+                <th>既定値</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>csharp_new_line_before_open_brace</code></td><td><code>all</code></td></tr>
+              <tr><td><code>csharp_new_line_before_else</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_new_line_before_catch</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_new_line_before_finally</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_new_line_before_members_in_object_initializers</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_new_line_before_members_in_anonymous_types</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_new_line_between_query_expression_clauses</code></td><td><code>true</code></td></tr>
+            </tbody>
+          </table>
 
-using CaseLib.Calc;
-using MyLib.Tools;
+          <h3>C# indentation options</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>option</th>
+                <th>既定値</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>csharp_indent_case_contents</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_indent_switch_labels</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_indent_labels</code></td><td><code>one_less_than_current</code></td></tr>
+              <tr><td><code>csharp_indent_block_contents</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_indent_braces</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_indent_case_contents_when_block</code></td><td><code>true</code></td></tr>
+            </tbody>
+          </table>
 
+          <h3>C# spacing options</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>option</th>
+                <th>既定値</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>csharp_space_after_cast</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_after_keywords_in_control_flow_statements</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_space_between_parentheses</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_before_colon_in_inheritance_clause</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_space_after_colon_in_inheritance_clause</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_space_around_binary_operators</code></td><td><code>before_and_after</code></td></tr>
+              <tr><td><code>csharp_space_between_method_declaration_parameter_list_parentheses</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_between_method_declaration_empty_parameter_list_parentheses</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_between_method_declaration_name_and_open_parenthesis</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_between_method_call_parameter_list_parentheses</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_between_method_call_empty_parameter_list_parentheses</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_between_method_call_name_and_opening_parenthesis</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_after_comma</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_space_before_comma</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_after_dot</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_before_dot</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_after_semicolon_in_for_statement</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_space_before_semicolon_in_for_statement</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_around_declaration_statements</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_before_open_square_brackets</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_between_empty_square_brackets</code></td><td><code>false</code></td></tr>
+              <tr><td><code>csharp_space_between_square_brackets</code></td><td><code>false</code></td></tr>
+            </tbody>
+          </table>
 
+          <h3>C# wrap options</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>option</th>
+                <th>既定値</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><code>csharp_preserve_single_line_statements</code></td><td><code>true</code></td></tr>
+              <tr><td><code>csharp_preserve_single_line_blocks</code></td><td><code>true</code></td></tr>
+            </tbody>
+          </table>
 
-
-
-namespace XXX.Client.UI
-{
-    public class XXXClientWindow
-    {
-    }
-}</code></pre>
-          <p>using はカテゴリごとに 1 行空け、カテゴリ内はアルファベット順に並べます。namespace の前には 5 行空け、波括弧は次の行に置きます。</p>
-          <p>クラス内部は、カテゴリの切り替えを 5 行空け、同一カテゴリ内の項目は 3 行空けます。メソッド内の処理の塊は 1 行空けて区切ります。</p>
-          <pre><code class="language-csharp">public class XXXClientWindow
-{
-    private int _counter;
-
-
-
-    private readonly List<string> _messages = new List<string>();
-
-
-
-
-
-    public string Title { get; set; }
-
-
-
-
-
-    public void Refresh()
-    {
-        _counter++;
-
-        _messages.Add($"Refresh {_counter}");
-
-        Console.WriteLine($"Refresh {_counter}");
-        Debug.Log($"Refresh {_counter}");
-    }
-
-
-
-
-
-    private class XXXClientHelper
-    {
-    }
-}</code></pre>
+          <h3>書式で特に重要な標準既定</h3>
+          <ul>
+            <li>波括弧位置の既定は <code>csharp_new_line_before_open_brace = all</code> です。つまり Allman スタイルです。</li>
+            <li><code>else</code>、<code>catch</code>、<code>finally</code> は新しい行に置くのが既定です。</li>
+            <li><code>switch</code> の <code>case</code> 本文はインデントし、ラベル自体もインデントするのが既定です。</li>
+          </ul>
         </section>
 
-        <section class="section" id="collections">
-          <h2>コレクション</h2>
-          <p>配列やコレクションの初期化は collection expressions を優先します。複数の要素を扱う場面では、読みやすさを崩さない範囲で LINQ を使います。</p>
+        <section class="section" id="enforcement">
+          <h2>適用方法</h2>
+          <p>
+            公式規約は、文章の推奨だけでなく analyzer と formatter で適用する前提です。
+            実装では <code>.editorconfig</code> を基準にし、必要なものは
+            <code>dotnet_diagnostic.&lt;rule id&gt;.severity</code>
+            で build 時の扱いを決めます。
+          </p>
+          <ul>
+            <li>書式は <code>IDE0055</code> と formatting option 群で管理します。</li>
+            <li>命名は <code>IDE1006</code> と naming rule 群で管理します。</li>
+            <li>言語スタイルは <code>IDE000x</code> から <code>IDE03xx</code> までの style rules で管理します。</li>
+            <li>Visual Studio の個人設定だけに依存せず、リポジトリ内の <code>.editorconfig</code> を優先します。</li>
+          </ul>
         </section>
 
-        <section class="section" id="tools">
-          <h2>ツール</h2>
-          <p><code>.editorconfig</code> と code analysis を使って規約を整えます。Visual Studio の編集時設定だけに依存しません。</p>
+        <section class="section" id="overrides">
+          <h2>独自上書き</h2>
+          <p class="callout">
+            以前このページに含まれていた、ケース識別子ベース命名や 5 行 / 3 行 / 1 行の空行規約などは、.NET 標準ではなくプロジェクト独自ルールです。
+          </p>
+          <p>
+            それらは
+            <a href="coding-standards-overrides.html">C# 独自上書き規約</a>
+            へ退避しました。標準ベースを確認したあとに、必要なものだけ追加適用してください。
+          </p>
         </section>
 
-        <section class="section" id="async">
-          <h2>非同期</h2>
-          <p>I/O を伴う処理は <code>async</code> / <code>await</code> を使い、同期ブロックを避けます。キャンセル可能な処理には <code>CancellationToken</code> を渡します。</p>
-        </section>
-
-        <section class="section" id="strings">
-          <h2>文字列</h2>
-          <p>短い連結は文字列補間を使い、ループ内の大量連結は <code>StringBuilder</code> を使います。raw string literal も必要に応じて使います。</p>
-        </section>
-
-        <section class="section" id="exceptions">
-          <h2>例外処理</h2>
-          <p>捕捉する例外は扱えるものに絞り、再送出では情報を失わない形を優先します。<code>using</code> で済むなら、解放処理のためだけに <code>try-finally</code> を使いません。</p>
-        </section>
-
-        <section class="section" id="operators">
-          <h2>論理演算子</h2>
-          <p>比較では <code>&amp;&amp;</code> と <code>||</code> を使い、ビット演算との混同を避けます。短絡評価が必要な場面では、評価順も意識します。</p>
-        </section>
-
-        <section class="section" id="delegates">
-          <h2>delegate と func/action</h2>
-          <p>単純な処理は <code>Func&lt;&gt;</code> / <code>Action&lt;&gt;</code> を使い、不要な delegate 型の追加は避けます。独自 delegate が必要な場合は、公開契約として意味を持たせます。</p>
-        </section>
-
-        <section class="section" id="events">
-          <h2>イベント</h2>
-          <p>解除不要なら lambda で書き、後で外す必要があるなら明示的なメソッドを使います。イベントの購読と解除の関係が追える形を優先します。</p>
+        <section class="section" id="sources">
+          <h2>出典</h2>
+          <ul>
+            <li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions">Common C# code conventions</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/identifier-names">C# identifier naming rules and conventions</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/">Code-style rules overview</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/language-rules">Code-style language and unnecessary code rules</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/csharp-formatting-options">C# formatting options</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/dotnet-formatting-options">.NET formatting options</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/naming-rules">Code-style naming rules</a></li>
+            <li><a href="https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/code-style-rule-options">Code-style rule options</a></li>
+          </ul>
         </section>
       </main>
 
@@ -243,15 +450,19 @@ namespace XXX.Client.UI
             </tr>
             <tr>
               <th>基準</th>
-              <td>.NET の標準 C# 規約</td>
+              <td>Microsoft Learn の .NET / C# 公式規約</td>
             </tr>
             <tr>
               <th>用途</th>
-              <td>公開資料</td>
+              <td>ベース規約</td>
             </tr>
             <tr>
-              <th>補足</th>
-              <td>プロジェクト固有の上書きは別途追加</td>
+              <th>独自規約</th>
+              <td><a href="coding-standards-overrides.html">別ページに退避</a></td>
+            </tr>
+            <tr>
+              <th>照合一覧</th>
+              <td><code>DotNetCodingStandardsInventory.md</code></td>
             </tr>
           </tbody>
         </table>

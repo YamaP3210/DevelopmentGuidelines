@@ -192,6 +192,10 @@ li { margin: 0 0 8px; }
   margin: 12px 0 16px;
 }
 
+.detail-page .grid {
+  grid-template-columns: 1fr;
+}
+
 .card {
   background: var(--paper-strong);
   border: 1px solid var(--border);

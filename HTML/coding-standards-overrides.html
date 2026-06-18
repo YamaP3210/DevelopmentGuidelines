@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C# 独自上書き規約</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="detail-page">
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">DevelopmentGuidelines</p>
+      <h1 class="title">C# 独自上書き規約</h1>
+      <p class="lead">
+        このページは、.NET 標準には含まれないが、このプロジェクトで独自に定義していた C# 規約を退避したものです。
+        ベース規約と混在させず、必要な上書きだけを明示的に参照できるようにしています。
+      </p>
+      <div class="meta">
+        <span class="chip">区分: プロジェクト独自</span>
+        <span class="chip">用途: 上書き候補の退避</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel">
+        <h2>目次</h2>
+        <ul class="toc">
+          <li><a href="coding-standards.html">標準ベースへ戻る</a></li>
+          <li><a href="#naming">命名上書き</a></li>
+          <li><a href="#formatting">書式上書き</a></li>
+          <li><a href="#usage">扱い方</a></li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <section class="section" id="naming">
+          <h2>命名上書き</h2>
+          <ul>
+            <li>ケース識別子を名前空間・クラス名・設定名・資産名の接頭辞として使う。</li>
+            <li>名前空間のルートをケース識別子から始め、<code>XXX.Client.UI</code>、<code>XXX.Client.Tools</code>、<code>XXX.Server.Core</code> のように分割する。</li>
+            <li>ケース間で名前空間を共有しない。</li>
+            <li>略語・頭文字語は通常の PascalCase に丸めず、<code>ID</code>、<code>TCP</code>、<code>UI</code> のように大文字のまま維持する。</li>
+            <li>単文字名を避け、ループ変数にも意味が分かる名前を優先する。</li>
+            <li><code>DataBase</code> を <code>DB</code> とするような、意味が通る略称を許容する。</li>
+          </ul>
+        </section>
+
+        <section class="section" id="formatting">
+          <h2>書式上書き</h2>
+          <ul>
+            <li>using をカテゴリごとに分け、カテゴリ間を 1 行空ける。</li>
+            <li>namespace の前を 5 行空ける。</li>
+            <li>クラス内部ではカテゴリ切り替えを 5 行空ける。</li>
+            <li>同一カテゴリ内の項目は 3 行空ける。</li>
+            <li>メソッド内の処理の塊は 1 行空ける。</li>
+          </ul>
+        </section>
+
+        <section class="section" id="usage">
+          <h2>扱い方</h2>
+          <p class="callout">
+            これらは .NET 標準ではありません。採用する場合は、標準規約を上書きする理由を明示したうえで、別段のプロジェクト規約として扱ってください。
+          </p>
+          <p>
+            元の混在状態を避けるため、標準ベースの
+            <a href="coding-standards.html">コーディング規約 / C#</a>
+            から分離しています。
+          </p>
+        </section>
+      </main>
+
+      <aside class="summary">
+        <h2>文書情報</h2>
+        <table class="table">
+          <tbody>
+            <tr><th>ページ</th><td>C# 独自上書き規約</td></tr>
+            <tr><th>性質</th><td>標準外のプロジェクト規約</td></tr>
+            <tr><th>元位置</th><td>旧 coding-standards.html の混在記述</td></tr>
+          </tbody>
+        </table>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>
