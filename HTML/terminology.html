@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>用語定義</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="detail-page">
+  <div class="page">
+    <header class="hero">
+      <p class="eyebrow">DevelopmentGuidelines</p>
+      <h1 class="title">用語定義</h1>
+      <p class="lead">
+        システム開発における様々な用語・呼称を統一し、解釈のブレをなくします。
+      </p>
+      <div class="meta">
+        <span class="chip">対象: 用語</span>
+        <span class="chip">用途: 認識統一</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel" aria-label="目次">
+        <h2>目次</h2>
+        <ul class="toc">
+          <li><a href="index.html">トップ</a></li>
+          <li><a href="#overview">概要</a></li>
+          <li><a href="#development-unit">開発単位</a></li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <section class="section" id="overview">
+          <h2>概要</h2>
+          <p>システム開発における様々な用語・呼称を統一し、解釈のブレをなくします。</p>
+        </section>
+
+        <section class="section" id="development-unit">
+          <h2>開発単位</h2>
+          <p class="callout">
+            このガイドラインでは、開発単位を表す語として <code>ケース</code> を使います。<code>ソリューション</code> と <code>プロジェクト</code> には、開発単位そのものを指す意味を含めません。
+          </p>
+
+          <table class="table terminology-table">
+            <colgroup>
+              <col style="width: 30%">
+              <col style="width: 70%">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>用語</th>
+                <th>定義</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ケース</td>
+                <td>システム開発における 1 つの開発単位を表す語です。機能、案件、製品、モジュールなどをまとめて扱う単位として使います。一般的に「〇〇開発プロジェクト」と呼ぶ場面でも、このガイドラインでは「〇〇開発ケース」と呼びます。</td>
+              </tr>
+              <tr>
+                <td>ソリューション</td>
+                <td>Visual Studio などの IDE において、複数のプロジェクトをまとめて管理する構成単位を表す語です。このガイドラインでは、開発単位そのものを指す意味では使いません。</td>
+              </tr>
+              <tr>
+                <td>プロジェクト</td>
+                <td>Visual Studio などの IDE において、ビルドや参照設定の単位となる構成要素を表す語です。このガイドラインでは、開発単位そのものを指す意味では使いません。</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <p>
+            一般的な文脈では、<code>ソリューション</code> や <code>プロジェクト</code> が開発単位そのものを表す場合がありますが、
+            このガイドラインではその意味を採用しません。開発単位を表す場合は、常に <code>ケース</code> を使います。
+          </p>
+        </section>
+      </main>
+
+      <aside class="summary">
+        <h2>文書情報</h2>
+        <table class="table">
+          <tbody>
+            <tr><th>ページ</th><td>用語定義</td></tr>
+            <tr><th>用途</th><td>用語の認識統一</td></tr>
+          </tbody>
+        </table>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

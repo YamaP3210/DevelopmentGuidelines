@@ -177,6 +177,148 @@ a:hover { text-decoration: underline; }
   color: var(--accent-ink);
 }
 
+.section-toggle {
+  margin: 0;
+}
+
+.section-toggle > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--paper-strong);
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  font-size: 0.92rem;
+}
+
+.tabs .section-toggle:not([open]) > summary {
+  display: none;
+}
+
+.tabs .section-toggle[open] > summary {
+  margin-top: 0;
+}
+
+.section-toggle > summary::-webkit-details-marker {
+  display: none;
+}
+
+.section-toggle > summary::before {
+  content: "▶";
+  font-size: 0.8rem;
+  transition: transform 0.2s ease;
+}
+
+.section-toggle[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.section-toggle > summary:hover {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+.sample-toggle > summary::before {
+  display: none;
+}
+
+.sample-toggle > summary .label-open {
+  display: none;
+}
+
+.sample-toggle[open] > summary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.sample-toggle[open] > summary:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.sample-toggle[open] > summary .label-closed {
+  display: none;
+}
+
+.sample-toggle[open] > summary .label-open {
+  display: inline;
+}
+
+.section-body > :last-child {
+  margin-bottom: 0;
+}
+
+.tabs {
+  margin-top: 8px;
+}
+
+.tabs > input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+.tab-controls label {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--paper-strong);
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.92rem;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab-controls label:hover {
+  background: var(--accent-soft);
+  color: var(--accent-ink);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tabs.tabs-open > input:nth-of-type(1):checked ~ .tab-controls label:nth-of-type(1),
+.tabs.tabs-open > input:nth-of-type(2):checked ~ .tab-controls label:nth-of-type(2),
+.tabs.tabs-open > input:nth-of-type(3):checked ~ .tab-controls label:nth-of-type(3),
+.tabs.tabs-open > input:nth-of-type(4):checked ~ .tab-controls label:nth-of-type(4),
+.tabs.tabs-open > input:nth-of-type(5):checked ~ .tab-controls label:nth-of-type(5),
+.tabs.tabs-open > input:nth-of-type(6):checked ~ .tab-controls label:nth-of-type(6) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.tabs > input:nth-of-type(1):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(1),
+.tabs > input:nth-of-type(2):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(2),
+.tabs > input:nth-of-type(3):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(3),
+.tabs > input:nth-of-type(4):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(4),
+.tabs > input:nth-of-type(5):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(5),
+.tabs > input:nth-of-type(6):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(6) {
+  display: block;
+}
+
+.tab-panel > :last-child {
+  margin-bottom: 0;
+}
+
 p { margin: 0 0 12px; }
 ul, ol {
   margin: 0 0 14px 22px;
@@ -201,6 +343,26 @@ li { margin: 0 0 8px; }
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 14px 16px;
+}
+
+.notes-section .note-card {
+  background: var(--code-bg);
+  border: 1px solid #e4d8c9;
+  border-radius: 14px;
+  padding: 14px 16px;
+}
+
+.notes-section .note-card + .note-card {
+  margin-top: 14px;
+}
+
+.notes-section .note-card h3 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.terminology-table th {
+  width: 30%;
 }
 
 .card h3 {
@@ -247,6 +409,13 @@ code {
   border-radius: 6px;
 }
 
+pre code {
+  background: transparent;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+
 pre {
   background: var(--code-bg);
   border: 1px solid #e4d8c9;
@@ -254,6 +423,7 @@ pre {
   padding: 14px 16px;
   overflow: auto;
   margin: 0 0 14px;
+  line-height: 1.2;
 }
 
 .summary {
