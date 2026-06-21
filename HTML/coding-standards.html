@@ -47,10 +47,10 @@
         <section class="section" id="guidelines">
           <h2>共通ガイドライン</h2>
           <div class="section-body">
-            <p class="callout">
+            <p>
               命名や formatter の設定値だけでは表せない、C# の書き方に関する基本的な考え方をまとめています。
             </p>
-            <div class="tabs">
+            <div class="tabs toggle-tabs" data-open="false">
                 <input checked type="radio" name="guidelines-tabs" id="guidelines-tab-1">
                 <input type="radio" name="guidelines-tabs" id="guidelines-tab-2">
                 <input type="radio" name="guidelines-tabs" id="guidelines-tab-3">
@@ -59,9 +59,7 @@
                   <label for="guidelines-tab-2">文字列・初期化</label>
                   <label for="guidelines-tab-3">例外・制御</label>
                 </div>
-                <details class="section-toggle">
-                  <summary>閉じる</summary>
-                  <div class="tab-panels">
+                <div class="tab-panels">
                     <section class="tab-panel">
                       <h3>言語機能の使い方</h3>
                       <ul>
@@ -96,8 +94,7 @@
                         <li>後で解除しないイベント ハンドラーは lambda で書けます。</li>
                       </ul>
                     </section>
-                  </div>
-                </details>
+                </div>
             </div>
           </div>
         </section>
@@ -105,19 +102,17 @@
         <section class="section" id="naming">
           <h2>命名</h2>
           <div class="section-body">
-            <p class="callout">
+            <p>
               命名は、同じ種類の要素が同じ規則で読めることと、名前を見ただけで役割が分かることを優先します。
             </p>
-            <div class="tabs">
+            <div class="tabs toggle-tabs" data-open="false">
                 <input checked type="radio" name="naming-tabs" id="naming-tab-1">
                 <input type="radio" name="naming-tabs" id="naming-tab-2">
                 <div class="tab-controls" role="tablist" aria-label="命名">
                   <label for="naming-tab-1">対象別ルール</label>
                   <label for="naming-tab-2">命名方針</label>
                 </div>
-                <details class="section-toggle">
-                  <summary>閉じる</summary>
-                  <div class="tab-panels">
+                <div class="tab-panels">
                     <section class="tab-panel">
                       <h3>対象ごとの命名規約</h3>
                       <table class="table">
@@ -187,8 +182,7 @@
                         <li>連続する <code>__</code> は使いません。</li>
                       </ul>
                     </section>
-                  </div>
-                </details>
+                </div>
             </div>
           </div>
         </section>
@@ -196,10 +190,10 @@
         <section class="section" id="language-rules">
           <h2>言語・不要コード規約</h2>
           <div class="section-body">
-            <p class="callout">
+            <p>
               C# の書き方や不要コードの扱いについて、日常的に判断が必要になる規約をまとめています。
             </p>
-            <div class="tabs">
+            <div class="tabs toggle-tabs" data-open="false">
                 <input checked type="radio" name="language-tabs" id="language-tab-1">
                 <input type="radio" name="language-tabs" id="language-tab-2">
                 <input type="radio" name="language-tabs" id="language-tab-3">
@@ -214,9 +208,7 @@
                   <label for="language-tab-5">switch</label>
                   <label for="language-tab-6">readonly</label>
                 </div>
-                <details class="section-toggle">
-                  <summary>閉じる</summary>
-                  <div class="tab-panels">
+                <div class="tab-panels">
                     <section class="tab-panel">
                       <h3>波括弧</h3>
                       <ul>
@@ -304,8 +296,7 @@ public UserService(ILogger logger, IRepository repository)
     _repository = repository;
 }</code></pre>
                     </section>
-                  </div>
-                </details>
+                </div>
             </div>
           </div>
         </section>
@@ -313,10 +304,10 @@ public UserService(ILogger logger, IRepository repository)
         <section class="section" id="formatting">
           <h2>書式規約</h2>
           <div class="section-body">
-            <p class="callout">
+            <p>
               改行、字下げ、空白、空行の入れ方について、実際のコードでどう書くかをまとめています。
             </p>
-            <div class="tabs">
+            <div class="tabs toggle-tabs" data-open="false">
                 <input checked type="radio" name="formatting-tabs" id="formatting-tab-1">
                 <input type="radio" name="formatting-tabs" id="formatting-tab-2">
                 <input type="radio" name="formatting-tabs" id="formatting-tab-3">
@@ -329,9 +320,7 @@ public UserService(ILogger logger, IRepository repository)
                   <label for="formatting-tab-4">空白</label>
                   <label for="formatting-tab-5">1 行保持</label>
                 </div>
-                <details class="section-toggle">
-                  <summary>閉じる</summary>
-                  <div class="tab-panels">
+                <div class="tab-panels">
                     <section class="tab-panel">
                       <h3>改行と波括弧</h3>
                       <ul>
@@ -437,8 +426,7 @@ return new UserSummary
     Name = user.Name
 };</code></pre>
                     </section>
-                  </div>
-                </details>
+                </div>
             </div>
           </div>
         </section>
@@ -446,7 +434,7 @@ return new UserSummary
         <section class="section" id="sample-code">
           <h2>サンプルコード</h2>
           <div class="section-body">
-            <p class="callout">
+            <p>
               ここでは、命名、書式、言語機能の使い方をまとめて確認できるように、サンプルクラスのコードを掲載しています。
             </p>
             <details class="section-toggle sample-toggle">
@@ -691,26 +679,27 @@ namespace XXX.Client.UI
   </div>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      document.querySelectorAll(".tabs").forEach(function (tabGroup) {
-        const details = tabGroup.querySelector(".section-toggle");
-        if (!details) {
-          return;
-        }
-
-        const syncOpenState = function () {
-          tabGroup.classList.toggle("tabs-open", details.open);
-        };
-
-        syncOpenState();
-        details.addEventListener("toggle", syncOpenState);
-
+      document.querySelectorAll(".tabs.toggle-tabs").forEach(function (tabGroup) {
         tabGroup.querySelectorAll(".tab-controls label").forEach(function (label) {
-          label.addEventListener("click", function () {
-            if (!details.open) {
-              requestAnimationFrame(function () {
-                details.open = true;
-              });
+          label.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const targetId = label.getAttribute("for");
+            const targetInput = targetId ? tabGroup.querySelector("#" + targetId) : null;
+            if (!targetInput) {
+              return;
             }
+
+            const isOpen = tabGroup.dataset.open === "true";
+            const isSelected = targetInput.checked;
+
+            if (isOpen && isSelected) {
+              tabGroup.dataset.open = "false";
+              return;
+            }
+
+            targetInput.checked = true;
+            tabGroup.dataset.open = "true";
           });
         });
       });

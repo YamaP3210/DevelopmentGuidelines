@@ -168,6 +168,24 @@ a:hover { text-decoration: underline; }
   box-shadow: 0 0 0 5px rgba(139, 94, 52, 0.12);
 }
 
+.content h3 {
+  margin: 28px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(139, 94, 52, 0.22);
+  color: var(--accent-ink);
+  font-size: 1.08rem;
+  line-height: 1.4;
+}
+
+.content h4 {
+  margin: 22px 0 10px;
+  padding-left: 12px;
+  border-left: 4px solid rgba(139, 94, 52, 0.42);
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.45;
+}
+
 .callout {
   margin: 0 0 14px;
   padding: 14px 16px;
@@ -195,14 +213,6 @@ a:hover { text-decoration: underline; }
   user-select: none;
   list-style: none;
   font-size: 0.92rem;
-}
-
-.tabs .section-toggle:not([open]) > summary {
-  display: none;
-}
-
-.tabs .section-toggle[open] > summary {
-  margin-top: 0;
 }
 
 .section-toggle > summary::-webkit-details-marker {
@@ -295,23 +305,43 @@ a:hover { text-decoration: underline; }
   display: none;
 }
 
-.tabs.tabs-open > input:nth-of-type(1):checked ~ .tab-controls label:nth-of-type(1),
-.tabs.tabs-open > input:nth-of-type(2):checked ~ .tab-controls label:nth-of-type(2),
-.tabs.tabs-open > input:nth-of-type(3):checked ~ .tab-controls label:nth-of-type(3),
-.tabs.tabs-open > input:nth-of-type(4):checked ~ .tab-controls label:nth-of-type(4),
-.tabs.tabs-open > input:nth-of-type(5):checked ~ .tab-controls label:nth-of-type(5),
-.tabs.tabs-open > input:nth-of-type(6):checked ~ .tab-controls label:nth-of-type(6) {
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(1):checked ~ .tab-controls label:nth-of-type(1),
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(2):checked ~ .tab-controls label:nth-of-type(2),
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(3):checked ~ .tab-controls label:nth-of-type(3),
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(4):checked ~ .tab-controls label:nth-of-type(4),
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(5):checked ~ .tab-controls label:nth-of-type(5),
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(6):checked ~ .tab-controls label:nth-of-type(6) {
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
 }
 
-.tabs > input:nth-of-type(1):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(1),
-.tabs > input:nth-of-type(2):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(2),
-.tabs > input:nth-of-type(3):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(3),
-.tabs > input:nth-of-type(4):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(4),
-.tabs > input:nth-of-type(5):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(5),
-.tabs > input:nth-of-type(6):checked ~ .section-toggle .tab-panels .tab-panel:nth-of-type(6) {
+.tabs:not(.toggle-tabs) > input:nth-of-type(1):checked ~ .tab-controls label:nth-of-type(1),
+.tabs:not(.toggle-tabs) > input:nth-of-type(2):checked ~ .tab-controls label:nth-of-type(2),
+.tabs:not(.toggle-tabs) > input:nth-of-type(3):checked ~ .tab-controls label:nth-of-type(3),
+.tabs:not(.toggle-tabs) > input:nth-of-type(4):checked ~ .tab-controls label:nth-of-type(4),
+.tabs:not(.toggle-tabs) > input:nth-of-type(5):checked ~ .tab-controls label:nth-of-type(5),
+.tabs:not(.toggle-tabs) > input:nth-of-type(6):checked ~ .tab-controls label:nth-of-type(6) {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(1):checked ~ .tab-panels .tab-panel:nth-of-type(1),
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(2):checked ~ .tab-panels .tab-panel:nth-of-type(2),
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(3):checked ~ .tab-panels .tab-panel:nth-of-type(3),
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(4):checked ~ .tab-panels .tab-panel:nth-of-type(4),
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(5):checked ~ .tab-panels .tab-panel:nth-of-type(5),
+.tabs.toggle-tabs[data-open="true"] > input:nth-of-type(6):checked ~ .tab-panels .tab-panel:nth-of-type(6) {
+  display: block;
+}
+
+.tabs:not(.toggle-tabs) > input:nth-of-type(1):checked ~ .tab-panels .tab-panel:nth-of-type(1),
+.tabs:not(.toggle-tabs) > input:nth-of-type(2):checked ~ .tab-panels .tab-panel:nth-of-type(2),
+.tabs:not(.toggle-tabs) > input:nth-of-type(3):checked ~ .tab-panels .tab-panel:nth-of-type(3),
+.tabs:not(.toggle-tabs) > input:nth-of-type(4):checked ~ .tab-panels .tab-panel:nth-of-type(4),
+.tabs:not(.toggle-tabs) > input:nth-of-type(5):checked ~ .tab-panels .tab-panel:nth-of-type(5),
+.tabs:not(.toggle-tabs) > input:nth-of-type(6):checked ~ .tab-panels .tab-panel:nth-of-type(6) {
   display: block;
 }
 
@@ -373,6 +403,26 @@ li { margin: 0 0 8px; }
 .card h4 {
   margin: 0 0 8px;
   font-size: 0.98rem;
+}
+
+.diagram-pyramid {
+  margin: 12px 0 16px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(244, 234, 223, 0.45), rgba(255, 253, 248, 0.95));
+}
+
+.diagram-placeholder {
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed var(--border-strong);
+  border-radius: 14px;
+  background: rgba(255, 253, 248, 0.88);
+  color: var(--muted);
+  font-size: 1rem;
 }
 
 .table {
