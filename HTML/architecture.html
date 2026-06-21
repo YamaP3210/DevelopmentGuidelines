@@ -12,7 +12,7 @@
       <p class="eyebrow">DevelopmentGuidelines</p>
       <h1 class="title">基本アーキテクチャ</h1>
       <p class="lead">
-        MVC、MVVM、レイヤード構成など、設計の軸となるアーキテクチャを解説します。
+        独自MVVM構成、レイヤード構成、フォルダ構成など、設計の軸となるアーキテクチャを解説します。
       </p>
       <div class="meta">
         <span class="chip">対象: 設計</span>
@@ -26,35 +26,232 @@
         <ul class="toc">
           <li><a href="index.html">トップ</a></li>
           <li><a href="#overview">概要</a></li>
-          <li><a href="#principles">観点</a></li>
-          <li><a href="#patterns">設計要素</a></li>
+          <li><a href="#mvvm">独自MVVM</a></li>
+          <li><a href="#project-structure">プロジェクト・フォルダ構成</a></li>
         </ul>
       </aside>
 
       <main class="content">
         <section class="section" id="overview">
           <h2>概要</h2>
-          <p class="callout">このページでは、基本とするアーキテクチャの考え方を解説します。</p>
+          <p>独自MVVM構成、レイヤード構成、フォルダ構成など、設計の軸となるアーキテクチャを解説します。</p>
         </section>
 
-        <section class="section" id="principles">
-          <h2>観点</h2>
-          <div class="grid">
-            <div class="card"><h3>責務分割</h3><p>UI、状態、ドメイン、I/O が混ざらない形を優先します。</p></div>
-            <div class="card"><h3>依存方向</h3><p>依存はなるべく一方向に流れる形を優先します。</p></div>
-            <div class="card"><h3>拡張性</h3><p>後から機能を足しやすい構造を優先します。</p></div>
-            <div class="card"><h3>読みやすさ</h3><p>設計図として説明しやすい構造を優先します。</p></div>
+        <section class="section" id="mvvm">
+          <h2>独自MVVM</h2>
+          <p>
+            当開発ガイドラインでは、設計パターンとして MVVM を採用しています。ただし、標準的な MVVM をベースにカスタマイズした独自MVVMパターンを採用します。このセクションの内容は、標準的な MVVM パターンの構成と役割を理解している前提で記述します。
+          </p>
+          <p>
+            この独自MVVMは、Unity における GameObject と Component の構成を前提として整理します。
+          </p>
+
+          <h3>構成対応</h3>
+          <div class="tabs">
+            <input checked type="radio" name="mvvm-tabs" id="mvvm-tab-model">
+            <input type="radio" name="mvvm-tabs" id="mvvm-tab-coordinator">
+            <input type="radio" name="mvvm-tabs" id="mvvm-tab-widget">
+            <input type="radio" name="mvvm-tabs" id="mvvm-tab-component">
+            <div class="tab-controls" role="tablist" aria-label="構成対応">
+              <label for="mvvm-tab-model">Model</label>
+              <label for="mvvm-tab-coordinator">Coordinator</label>
+              <label for="mvvm-tab-widget">Widget</label>
+              <label for="mvvm-tab-component">Component</label>
+            </div>
+            <div class="tab-panels">
+              <section class="tab-panel">
+                <h4>Model</h4>
+                <p>
+                  <code>Model</code> は、一般的な MVVM の <code>Model</code> に相当する層です。
+                </p>
+                <p>
+                  データと業務処理を担当し、UI アクションを契機として <code>Coordinator</code> から処理要求を受け、必要な処理を実行してデータを更新します。
+                </p>
+                <p>
+                  更新結果は <code>Coordinator</code> を通じて <code>Widget</code> に通知します。また、複数の <code>Coordinator</code> から利用され、必要に応じて他の <code>Model</code> とも連携します。
+                </p>
+              </section>
+              <section class="tab-panel">
+                <h4>Coordinator</h4>
+                <p>
+                  <code>Coordinator</code> は、一般的な MVVM の <code>ViewModel</code> に相当する層です。
+                </p>
+                <p>
+                  1 つ以上の <code>Widget</code> を担当し、<code>Model</code> から通知されたデータやイベントを受け取り、担当する <code>Widget</code> に必要な情報を通知します。また、UI アクションに応じて <code>Model</code> に処理を依頼します。
+                </p>
+                <p>
+                  必要に応じて他の <code>Coordinator</code> や複数の <code>Model</code> とも連携します。<code>Widget</code> 間の連携は、必ず <code>Coordinator</code> を介して行います。
+                </p>
+                <div class="callout">
+                  注記: <code>Coordinator</code> は、<code>Widget</code> を直接の表示単位として束ね、画面全体の振る舞いを調整する中間層です。<code>Widget</code> は末端の UI 機能単位として個別の入出力や表示制御を担当し、<code>Coordinator</code> はそれらの担当割り当てや相互連携をまとめます。
+                </div>
+              </section>
+              <section class="tab-panel">
+                <h4>Widget</h4>
+                <p>
+                  <code>Widget</code> は、複数の <code>Component</code> をまとめて 1 つの機能単位として扱う層です。
+                </p>
+                <p>
+                  パネル、入力エリア、一覧表示領域など、ひとまとまりの UI 機能を表し、<code>Coordinator</code> から通知されたイベントやデータに応じて、担当する <code>Component</code> 群へ処理を振り分けます。
+                </p>
+                <p>
+                  <code>Widget</code> 同士は直接連携せず、必要な連携は担当する <code>Coordinator</code> を介して行います。
+                </p>
+              </section>
+              <section class="tab-panel">
+                <h4>Component</h4>
+                <p>
+                  <code>Component</code> は、<code>View</code> を構成する末端単位です。
+                </p>
+                <p>
+                  単体の <code>GameObject</code>、または単体の機能を提供する複数の <code>GameObject</code> をまとめた構成単位として扱い、ボタン、入力欄、ラベル表示、一覧の 1 要素など、個別の UI 機能を担当します。
+                </p>
+                <p>
+                  <code>Component</code> 同士は直接連携せず、必要な連携は必ず担当する <code>Widget</code> を介して行います。
+                </p>
+              </section>
+            </div>
+          </div>
+
+          <h3>連携図</h3>
+          <div class="diagram-pyramid" aria-label="独自MVVMの階層構造">
+            <div class="diagram-placeholder">
+              ここに連携図を挿入予定です。
+            </div>
           </div>
         </section>
 
-        <section class="section" id="patterns">
-          <h2>設計要素</h2>
-          <div class="grid">
-            <div class="card"><h3>MVC</h3><p>どの層を何に使うか、どこまでを許すかを示します。</p></div>
-            <div class="card"><h3>MVVM</h3><p>View と Model の間をどうつなぐかを示します。</p></div>
-            <div class="card"><h3>レイヤー構成</h3><p>プレゼンテーション、アプリケーション、ドメインなどの分け方を示します。</p></div>
-            <div class="card"><h3>Unity での位置付け</h3><p>シーン、Prefab、コンポーネントの役割分担を示します。</p></div>
+        <section class="section" id="project-structure">
+          <h2>プロジェクト・フォルダ構成</h2>
+          <p>
+            Unity プロジェクトにおけるフォルダ構成は、<code>Assets</code> フォルダ配下のみを記述対象とします。
+          </p>
+
+          <h3>基本構成</h3>
+          <p>
+            プロジェクト固有の <code>Assets</code> は、プロジェクト名のフォルダを作成し、その中にすべて格納します。たとえば <code>XXXProject</code> という名前のプロジェクトであれば、プロジェクト固有のリソースやコードは <code>Assets/XXXProject/</code> 配下にまとめます。
+          </p>
+          <p>
+            <code>Assets/XXXProject/</code> 配下には、基本的に次のフォルダを配置します。
+          </p>
+          <pre><code>Assets/
+└─ XXXProject/
+   ├─ Resources/
+   ├─ Scenes/
+   ├─ Scripts/
+   ├─ Prefabs/
+   └─ その他プロジェクト固有のフォルダ
+</code></pre>
+
+          <h3>Scripts フォルダ</h3>
+          <p>
+            <code>Scripts</code> フォルダには、アプリケーションのコード資産を機能別に分類して配置します。
+          </p>
+          <div class="callout">
+            注記: <code>Core</code> はアプリケーション共通の基幹機能を置くフォルダです。<code>Model</code> はその基盤を利用して、担当領域のデータと状態を管理するフォルダです。両者は役割が近く見えますが、<code>Core</code> は共通基盤、<code>Model</code> は担当領域の実体として分けます。
           </div>
+          <pre><code>Assets/
+└─ XXXProject/
+   └─ Scripts/
+      ├─ Core/
+      ├─ Models/
+      ├─ Coordinators/
+      ├─ View/
+      ├─ Tools/
+      ├─ Classes/
+      ├─ Extensions/
+      ├─ Data/
+      └─ Database/
+</code></pre>
+
+          <h4>Core</h4>
+          <p>
+            <code>Core</code> は、アプリケーションの基幹部として動作するクラス群を配置するフォルダです。
+          </p>
+          <p>
+            内容に固定の決まりはなく、アプリケーションに応じた基幹部として扱います。たとえば <code>Model</code> や <code>Coordinator</code> の基底クラス、通信やログを扱うクラスなど、MVVM の枠外でアプリケーションの土台として働くクラスを配置します。
+          </p>
+          <p>
+            <code>Core</code> は、他の構成要素の補助ではなく、それ自体で基幹機能を担う単位として構成します。
+          </p>
+
+          <h3>構築例</h3>
+          <p>
+            <code>Core</code> の内部構成は、アプリケーションの種類によって変わります。そのため、ここでは代表例として Unity プロジェクトにおける構築例を示します。
+          </p>
+
+          <h4>Unity</h4>
+          <p>
+            Unity プロジェクトでは、<code>Core</code> にアプリケーション共通の基幹機能を集約します。通信、ログ、設定、共通ユーティリティなど、各 <code>Model</code> や <code>Coordinator</code> が利用する機能をこの層に置きます。
+          </p>
+          <p>
+            <code>Core</code> は共通基盤として独立して機能し、<code>Model</code> や <code>Coordinator</code> から利用されます。具体的な内部分割は Unity アプリケーションごとに調整しますが、共通処理を個別の <code>Model</code> に持たせず、基盤側へ寄せる方針を基本とします。
+          </p>
+
+          <h4>Models</h4>
+          <p>
+            <code>Models</code> は、アプリケーション内で <code>Model</code> として扱うクラス群を配置するフォルダです。
+          </p>
+          <p>
+            <code>Model</code> は、担当領域のデータと状態を管理する層です。<code>Core</code> が提供する共通機能を利用しながら、その領域固有の振る舞いを持ちます。
+          </p>
+
+          <h4>Coordinators</h4>
+          <p>
+            <code>Coordinators</code> は、アプリケーション内で <code>Coordinator</code> として扱うクラス群を配置するフォルダです。
+          </p>
+
+          <h4>View</h4>
+          <p>
+            <code>View</code> は、<code>Widget</code> や <code>Component</code> を配置するフォルダです。
+          </p>
+          <p>
+            構成によっては、XAML、HTML、CSS、JavaScript など、表示や画面構成に関わるファイル群をここに配置する場合もあります。
+          </p>
+
+          <h4>Tools</h4>
+          <p>
+            <code>Tools</code> は、MVVM に該当しないクラス群を配置するフォルダです。
+          </p>
+          <p>
+            アプリケーションによっては、<code>Tools</code> と <code>Utilities</code> などに分けて、役割ごとにフォルダ構造を細分化する場合もあります。
+          </p>
+
+          <h4>Classes</h4>
+          <p>
+            <code>Classes</code> は、カテゴリ分けが難しい雑多な機能を持つクラス群を配置するフォルダです。
+          </p>
+
+          <h4>Extensions</h4>
+          <p>
+            <code>Extensions</code> は、拡張メソッドを定義するクラス群を配置するフォルダです。
+          </p>
+
+          <h4>Data</h4>
+          <p>
+            <code>Data</code> は、データモデルとして扱うクラス群を配置するフォルダです。
+          </p>
+
+          <h4>Database</h4>
+          <p>
+            <code>Database</code> は、DB を扱うアプリケーションで、関連するクラス群を配置するフォルダです。
+          </p>
+
+          <h3>Scene と Hierarchy</h3>
+          <p>
+            2D アプリケーション開発では、Scene と Hierarchy の初期状態も規約として定めます。
+          </p>
+          <h4>初期 Scene</h4>
+          <p>
+            Unity の 2D プロジェクト初期 Scene には、基本的に <code>Main Camera</code> と 2D 用のライティングオブジェクトが配置されます。テンプレートによっては <code>Grid</code> などの補助オブジェクトが追加される場合があります。
+          </p>
+          <h4>Hierarchy 方針</h4>
+          <p>
+            Hierarchy は、画面の構成要素と役割が分かるように整理します。初期状態の Scene に必要なオブジェクトだけを置き、以後の画面構成は <code>Widget</code> 単位で追加します。
+          </p>
+          <p>
+            画面要素の実体は <code>GameObject</code> と <code>Component</code> によって構成し、<code>Coordinator</code> はそれらの状態と連携を管理します。
+          </p>
         </section>
       </main>
 
@@ -64,7 +261,7 @@
           <tbody>
             <tr><th>ページ</th><td>基本アーキテクチャ</td></tr>
             <tr><th>用途</th><td>設計方針の公開資料</td></tr>
-            <tr><th>主なキーワード</th><td>MVC / MVVM / レイヤー</td></tr>
+            <tr><th>主なキーワード</th><td>独自MVVM / レイヤー / フォルダ構成</td></tr>
           </tbody>
         </table>
       </aside>
